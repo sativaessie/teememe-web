@@ -1,0 +1,762 @@
+/* =========================================================
+   TEEMEME — CUSTOM STUDIO
+========================================================= */
+
+.custom-page {
+  background: #f3eee6;
+  color: #0a0a0a;
+  min-height: 100vh;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.custom-page-hero {
+  min-height: 72vh;
+  padding: 150px 6vw 100px;
+
+  display: flex;
+  align-items: flex-end;
+
+  background:
+    linear-gradient(
+      120deg,
+      #0a0a0a 0%,
+      #111111 60%,
+      #191919 100%
+    );
+
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.custom-page-hero::after {
+  content: "CUSTOM";
+  position: absolute;
+  right: -40px;
+  bottom: -55px;
+
+  font-size: clamp(130px, 20vw, 320px);
+  font-weight: 900;
+  line-height: 0.7;
+  letter-spacing: -12px;
+
+  color: rgba(255, 255, 255, 0.035);
+  pointer-events: none;
+}
+
+.custom-page-hero > div {
+  position: relative;
+  z-index: 2;
+  width: min(1000px, 100%);
+}
+
+.custom-eyebrow {
+  margin: 0 0 24px;
+
+  color: #ff5a00;
+
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 3px;
+}
+
+.custom-page-hero h1 {
+  margin: 0;
+
+  font-size: clamp(70px, 10vw, 150px);
+  font-weight: 900;
+  line-height: 0.8;
+  letter-spacing: -8px;
+}
+
+.custom-page-hero h1 span {
+  color: #ff5a00;
+}
+
+.custom-page-hero p:last-child {
+  max-width: 580px;
+  margin: 38px 0 0;
+
+  color: #bdbdbd;
+
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   FORM AREA
+========================================================= */
+
+.custom-order-section {
+  padding: 100px 5vw 140px;
+}
+
+.custom-order-form {
+  width: min(1300px, 100%);
+  margin: 0 auto;
+}
+
+
+/* =========================================================
+   FORM SECTIONS
+========================================================= */
+
+.custom-form-section {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 45px;
+
+  padding: 85px 0;
+
+  border-bottom: 1px solid rgba(10, 10, 10, 0.14);
+}
+
+.custom-form-number {
+  color: #ff5a00;
+
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.custom-form-content {
+  max-width: 950px;
+}
+
+.custom-form-eyebrow {
+  margin: 0 0 15px;
+
+  color: #ff5a00;
+
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 2.5px;
+}
+
+.custom-form-content h2 {
+  margin: 0 0 40px;
+
+  font-size: clamp(45px, 5vw, 76px);
+  font-weight: 900;
+  line-height: 0.88;
+  letter-spacing: -4px;
+}
+
+.custom-form-content h2 span {
+  color: #ff5a00;
+}
+
+
+/* =========================================================
+   CHOICES
+========================================================= */
+
+.custom-choice-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.custom-choice {
+  min-height: 68px;
+
+  padding: 15px 18px;
+
+  border: 1px solid rgba(10, 10, 10, 0.2);
+  background: transparent;
+
+  color: #0a0a0a;
+
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1px;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.custom-choice:hover {
+  border-color: #ff5a00;
+  transform: translateY(-2px);
+}
+
+.custom-choice.active {
+  background: #0a0a0a;
+  border-color: #0a0a0a;
+  color: #fff;
+}
+
+.custom-choice.active::after {
+  content: " ✓";
+  color: #ff5a00;
+}
+
+
+/* =========================================================
+   UPLOAD
+========================================================= */
+
+.custom-upload {
+  min-height: 220px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 35px;
+
+  border: 1.5px dashed rgba(10, 10, 10, 0.3);
+
+  background: rgba(255, 255, 255, 0.4);
+
+  text-align: center;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.custom-upload:hover {
+  border-color: #ff5a00;
+  background: rgba(255, 90, 0, 0.05);
+}
+
+.custom-upload input {
+  display: none;
+}
+
+.upload-title {
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.upload-subtitle {
+  margin-top: 10px;
+
+  color: #777;
+
+  font-size: 10px;
+  letter-spacing: 1.5px;
+}
+
+
+/* =========================================================
+   TEXTAREAS
+========================================================= */
+
+.custom-textarea {
+  width: 100%;
+
+  margin-top: 14px;
+  padding: 20px;
+
+  border: 1px solid rgba(10, 10, 10, 0.2);
+  border-radius: 0;
+
+  background: rgba(255, 255, 255, 0.55);
+
+  color: #0a0a0a;
+
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.6;
+
+  resize: vertical;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.custom-textarea::placeholder {
+  color: #888;
+}
+
+.custom-textarea:focus {
+  border-color: #ff5a00;
+  background: #fff;
+}
+
+
+/* =========================================================
+   LABELS + SELECT
+========================================================= */
+
+.custom-label {
+  display: block;
+
+  margin-bottom: 30px;
+
+  color: #0a0a0a;
+
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+}
+
+.custom-label select {
+  display: block;
+
+  width: 100%;
+  max-width: 500px;
+
+  margin-top: 12px;
+  padding: 17px 18px;
+
+  border: 1px solid rgba(10, 10, 10, 0.2);
+  border-radius: 0;
+
+  background: #fff;
+
+  color: #0a0a0a;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+
+  outline: none;
+  cursor: pointer;
+}
+
+.custom-label select:focus {
+  border-color: #ff5a00;
+}
+
+
+/* =========================================================
+   PRINT PLACEMENT
+========================================================= */
+
+.custom-label > .custom-choice-grid {
+  margin-top: 12px;
+}
+
+
+/* =========================================================
+   SIZE GUIDE
+========================================================= */
+
+.size-guide-button {
+  margin-bottom: 28px;
+
+  padding: 13px 18px;
+
+  border: 1px solid #0a0a0a;
+  background: transparent;
+
+  color: #0a0a0a;
+
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.size-guide-button:hover {
+  background: #ff5a00;
+  border-color: #ff5a00;
+}
+
+
+/* =========================================================
+   SIZES
+========================================================= */
+
+.custom-size-list {
+  width: min(650px, 100%);
+
+  border-top: 1px solid rgba(10, 10, 10, 0.18);
+}
+
+.custom-size-row {
+  display: grid;
+  grid-template-columns: 1fr 100px;
+  align-items: center;
+
+  min-height: 64px;
+
+  border-bottom: 1px solid rgba(10, 10, 10, 0.12);
+}
+
+.custom-size-row span {
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.custom-size-row input {
+  width: 70px;
+
+  padding: 11px;
+
+  border: 1px solid rgba(10, 10, 10, 0.2);
+
+  background: #fff;
+
+  color: #0a0a0a;
+
+  font-family: inherit;
+  font-weight: 800;
+
+  text-align: center;
+
+  outline: none;
+}
+
+.custom-size-row input:focus {
+  border-color: #ff5a00;
+}
+
+
+/* =========================================================
+   TOTAL
+========================================================= */
+
+.custom-total {
+  width: min(650px, 100%);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 25px 0;
+}
+
+.custom-total span {
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.custom-total strong {
+  color: #ff5a00;
+
+  font-size: 28px;
+  font-weight: 900;
+}
+
+
+/* =========================================================
+   CONTACT
+========================================================= */
+
+.custom-contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.custom-contact-grid input {
+  width: 100%;
+
+  padding: 18px;
+
+  border: 1px solid rgba(10, 10, 10, 0.2);
+  border-radius: 0;
+
+  background: rgba(255, 255, 255, 0.55);
+
+  color: #0a0a0a;
+
+  font-family: inherit;
+  font-size: 13px;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.custom-contact-grid input::placeholder {
+  color: #888;
+}
+
+.custom-contact-grid input:focus {
+  border-color: #ff5a00;
+  background: #fff;
+}
+
+
+/* =========================================================
+   SUBMIT
+========================================================= */
+
+.custom-submit-area {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+
+  padding: 90px 0 0;
+}
+
+.custom-submit-area p {
+  margin: 0;
+
+  color: #666;
+
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.custom-submit-button {
+  min-width: 300px;
+
+  padding: 22px 28px;
+
+  border: 0;
+
+  background: #ff5a00;
+  color: #0a0a0a;
+
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.custom-submit-button span {
+  margin-left: 20px;
+  font-size: 17px;
+}
+
+.custom-submit-button:hover {
+  background: #0a0a0a;
+  color: #fff;
+  transform: translateY(-3px);
+}
+
+
+/* =========================================================
+   SIZE GUIDE MODAL
+========================================================= */
+
+.size-guide-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 30px;
+
+  background: rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(8px);
+}
+
+.size-guide-modal {
+  position: relative;
+
+  width: min(900px, 100%);
+  max-height: 90vh;
+
+  padding: 20px;
+
+  background: #f3eee6;
+
+  overflow: auto;
+}
+
+.size-guide-modal img {
+  display: block;
+
+  width: 100%;
+  height: auto;
+}
+
+.size-guide-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+
+  width: 42px;
+  height: 42px;
+
+  border: 0;
+  border-radius: 50%;
+
+  background: #0a0a0a;
+  color: #fff;
+
+  font-size: 25px;
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.size-guide-close:hover {
+  background: #ff5a00;
+  color: #0a0a0a;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .custom-page-hero {
+    min-height: 62vh;
+    padding: 130px 6vw 80px;
+  }
+
+  .custom-form-section {
+    grid-template-columns: 60px 1fr;
+    gap: 25px;
+  }
+
+  .custom-choice-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .custom-submit-area {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .custom-submit-button {
+    width: 100%;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .custom-page-hero {
+    min-height: 70vh;
+
+    padding: 120px 22px 65px;
+
+    align-items: flex-end;
+  }
+
+  .custom-page-hero::after {
+    font-size: 100px;
+    right: -20px;
+  }
+
+  .custom-eyebrow {
+    font-size: 9px;
+    letter-spacing: 2px;
+  }
+
+  .custom-page-hero h1 {
+    font-size: clamp(65px, 19vw, 100px);
+    letter-spacing: -5px;
+  }
+
+  .custom-page-hero p:last-child {
+    margin-top: 28px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .custom-order-section {
+    padding: 65px 20px 90px;
+  }
+
+  .custom-form-section {
+    display: block;
+
+    padding: 60px 0;
+  }
+
+  .custom-form-number {
+    margin-bottom: 20px;
+  }
+
+  .custom-form-content h2 {
+    margin-bottom: 30px;
+
+    font-size: 47px;
+    letter-spacing: -3px;
+  }
+
+  .custom-choice-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .custom-choice {
+    min-height: 60px;
+
+    padding: 12px;
+
+    font-size: 9px;
+  }
+
+  .custom-upload {
+    min-height: 180px;
+  }
+
+  .custom-contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .custom-size-row {
+    grid-template-columns: 1fr 80px;
+  }
+
+  .custom-size-row input {
+    width: 60px;
+  }
+
+  .custom-submit-area {
+    padding-top: 65px;
+  }
+
+  .custom-submit-button {
+    min-width: 0;
+    width: 100%;
+
+    padding: 20px;
+  }
+
+  .size-guide-overlay {
+    padding: 15px;
+  }
+
+  .size-guide-modal {
+    padding: 10px;
+  }
+
+}

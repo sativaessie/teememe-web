@@ -1,0 +1,276 @@
+/* =========================================================
+   TEEMEME PRODUCT CARD
+========================================================= */
+
+.product-card {
+  width: 100%;
+  min-width: 0;
+}
+
+
+/* =========================================================
+   IMAGE
+========================================================= */
+
+.product-card-image {
+  position: relative;
+
+  width: 100%;
+  aspect-ratio: 4 / 5;
+
+  overflow: hidden;
+
+  background: #ded9d0;
+}
+
+
+/* IMAGE */
+
+.product-card-image img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.product-card:hover .product-card-image img {
+  transform: scale(1.045);
+}
+
+
+/* =========================================================
+   BADGE
+========================================================= */
+
+.product-card-badge {
+  position: absolute;
+
+  top: 14px;
+  left: 14px;
+
+  z-index: 3;
+
+  padding: 8px 11px;
+
+  background: #ff5a00;
+  color: #090909;
+
+  font-size: 0.58rem;
+  font-weight: 900;
+
+  letter-spacing: 0.09em;
+
+  text-transform: uppercase;
+}
+
+
+/* =========================================================
+   WISHLIST
+========================================================= */
+
+.product-card-wishlist {
+  position: absolute;
+
+  top: 14px;
+  right: 14px;
+
+  z-index: 3;
+
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(255,255,255,0.5);
+
+  background: rgba(0,0,0,0.45);
+  color: white;
+
+  cursor: pointer;
+
+  backdrop-filter: blur(6px);
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.product-card-wishlist:hover {
+  background: #ff5a00;
+  border-color: #ff5a00;
+  color: #090909;
+}
+
+
+/* =========================================================
+   ADD TO BAG
+========================================================= */
+
+.product-card-cart {
+  position: absolute;
+
+  left: 14px;
+  right: 14px;
+  bottom: 14px;
+
+  z-index: 3;
+
+  min-height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+
+  border: none;
+
+  background: #f4f0e8;
+  color: #090909;
+
+  font-size: 0.65rem;
+  font-weight: 900;
+
+  letter-spacing: 0.1em;
+
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.product-card-cart-arrow {
+  position: absolute;
+  right: 15px;
+
+  font-size: 0.95rem;
+}
+
+.product-card-cart:hover {
+  background: #ff5a00;
+  color: #090909;
+
+  transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   PRODUCT DETAILS
+========================================================= */
+
+.product-card-info {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 18px;
+
+  padding-top: 15px;
+}
+
+
+.product-card-details {
+  min-width: 0;
+}
+
+
+/* CATEGORY */
+
+.product-card-category {
+  margin: 0 0 6px;
+
+  color: #817c74;
+
+  font-size: 0.58rem;
+  font-weight: 900;
+
+  letter-spacing: 0.12em;
+
+  line-height: 1.3;
+
+  text-transform: uppercase;
+}
+
+
+/* NAME */
+
+.product-card-name {
+  margin: 0;
+
+  color: #090909;
+
+  font-size: 0.95rem;
+  font-weight: 900;
+
+  line-height: 1.15;
+
+  letter-spacing: -0.02em;
+
+  text-transform: uppercase;
+}
+
+
+/* PRICE */
+
+.product-card-price {
+  flex-shrink: 0;
+
+  margin: 0;
+
+  color: #ff5a00;
+
+  font-size: 0.82rem;
+  font-weight: 900;
+
+  line-height: 1.2;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .product-card-info {
+    display: block;
+  }
+
+  .product-card-price {
+    margin-top: 8px;
+  }
+
+  .product-card-cart {
+    left: 9px;
+    right: 9px;
+    bottom: 9px;
+
+    min-height: 44px;
+  }
+
+  .product-card-wishlist {
+    top: 10px;
+    right: 10px;
+
+    width: 36px;
+    height: 36px;
+  }
+
+  .product-card-badge {
+    top: 10px;
+    left: 10px;
+  }
+}
