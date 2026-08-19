@@ -1,4 +1,4 @@
-import "./Categories.css";
+import "./categories.css";
 const categories = [
   {
     title: "KENYAN VIBES",
