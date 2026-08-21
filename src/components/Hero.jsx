@@ -62,7 +62,6 @@ function Hero({ onNavigate }) {
 
       <div className="hero-meta">
         <span>TEEMEME</span>
-        <span>EST. 2026</span>
       </div>
 
       <div className="hero-scroll">
