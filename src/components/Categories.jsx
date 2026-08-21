@@ -29,13 +29,13 @@ const categories = [
     title: "WOMEN",
     category: "Women",
     subtitle: "Pieces made to feel like you.",
-    image: "/categories/women.jpg",
+    image: "/categories/women.png",
   },
   {
     title: "MEN",
     category: "Men",
     subtitle: "Keep it simple. Keep it yours.",
-    image: "/categories/men.jpg",
+    image: "/categories/men.png",
   },
   {
     title: "CORPORATE & BULK",

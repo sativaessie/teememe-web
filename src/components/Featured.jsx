@@ -1,7 +1,9 @@
 import products from "../data/products";
 
 function Featured({ onNavigate }) {
-  const featuredProducts = products.slice(0, 4);
+ const featuredProducts = products.filter((product) =>
+  [1, 2, 3, 5].includes(product.id)
+);
 
   return (
     <section className="featured-section" id="featured">
@@ -77,9 +79,9 @@ function Featured({ onNavigate }) {
                   {product.name}
                 </h3>
 
-                <p>
-                  {product.category}
-                </p>
+               <p>
+  {product.category.toUpperCase()}
+</p>
               </div>
 
               <strong>
