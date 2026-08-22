@@ -16,28 +16,23 @@
 .corporate-page-hero {
   min-height: 78vh;
   padding: 150px 6vw 90px;
-
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
+  grid-template-columns: 1.05fr 0.95fr;
   align-items: center;
   gap: 70px;
-
   background: #0a0a0a;
   color: #fff;
-
   overflow: hidden;
 }
 
-.corporate-page-hero > div:first-child {
+.corporate-hero-copy {
   position: relative;
   z-index: 2;
 }
 
 .corporate-page-eyebrow {
   margin: 0 0 22px;
-
   color: #ff5a00;
-
   font-size: 10px;
   font-weight: 900;
   letter-spacing: 3px;
@@ -45,7 +40,6 @@
 
 .corporate-page-hero h1 {
   margin: 0;
-
   font-size: clamp(65px, 8vw, 125px);
   font-weight: 900;
   line-height: 0.82;
@@ -54,55 +48,78 @@
 
 .corporate-page-hero h1 span,
 .corporate-services h2 span,
+.corporate-lookbook h2 span,
 .corporate-request h2 span {
   color: #ff5a00;
 }
 
-.corporate-page-hero > div:first-child > p:last-child {
+.corporate-hero-description {
   max-width: 600px;
   margin: 40px 0 0;
-
   color: #bcbcbc;
-
   font-size: 16px;
   line-height: 1.7;
 }
 
+.corporate-hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 35px;
+}
 
-/* HERO IMAGE */
+.corporate-hero-meta span {
+  padding: 10px 14px;
+  border: 1px solid #333;
+  color: #aaa;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+}
+
+
+/* =========================================================
+   HERO IMAGE
+========================================================= */
 
 .corporate-page-hero-image {
   position: relative;
-
   height: 560px;
-
   overflow: hidden;
-
   background: #171717;
 }
 
-.corporate-page-hero-image::after {
+.corporate-page-hero-image::before {
   content: "";
   position: absolute;
   inset: 0;
-
+  z-index: 1;
   background: linear-gradient(
-    180deg,
-    transparent 50%,
-    rgba(0, 0, 0, 0.35)
+    135deg,
+    rgba(0, 0, 0, 0.1),
+    transparent 60%
   );
+  pointer-events: none;
+}
 
+.corporate-page-hero-image::after {
+  content: "TEE-MEME";
+  position: absolute;
+  right: -20px;
+  bottom: -15px;
+  z-index: 2;
+  color: rgba(255, 255, 255, 0.08);
+  font-size: 75px;
+  font-weight: 900;
+  letter-spacing: -5px;
   pointer-events: none;
 }
 
 .corporate-page-hero-image img {
   width: 100%;
   height: 100%;
-
   display: block;
-
   object-fit: cover;
-
   transition: transform 0.8s ease;
 }
 
@@ -117,13 +134,11 @@
 
 .corporate-services {
   padding: 120px 6vw;
-
   background: #f3eee6;
 }
 
 .corporate-services > h2 {
   margin: 0 0 70px;
-
   font-size: clamp(55px, 7vw, 100px);
   font-weight: 900;
   line-height: 0.84;
@@ -132,18 +147,14 @@
 
 .corporate-services-grid {
   width: min(1250px, 100%);
-
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-
   border-top: 1px solid rgba(10, 10, 10, 0.2);
 }
 
 .corporate-services-grid > div {
   min-height: 300px;
-
   padding: 35px 35px 35px 0;
-
   border-right: 1px solid rgba(10, 10, 10, 0.2);
 }
 
@@ -157,11 +168,8 @@
 
 .corporate-services-grid span {
   display: block;
-
   margin-bottom: 70px;
-
   color: #ff5a00;
-
   font-size: 11px;
   font-weight: 900;
   letter-spacing: 2px;
@@ -169,7 +177,6 @@
 
 .corporate-services-grid h3 {
   margin: 0 0 15px;
-
   font-size: 15px;
   font-weight: 900;
   letter-spacing: 1px;
@@ -177,13 +184,141 @@
 
 .corporate-services-grid p {
   max-width: 280px;
-
   margin: 0;
-
   color: #686868;
-
   font-size: 13px;
   line-height: 1.7;
+}
+
+
+/* =========================================================
+   LOOKBOOK / IMAGE SHOWCASE
+========================================================= */
+
+.corporate-lookbook {
+  padding: 120px 6vw 140px;
+  background: #ffffff;
+}
+
+.corporate-lookbook-heading {
+  width: min(1250px, 100%);
+  margin: 0 auto 75px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 60px;
+}
+
+.corporate-lookbook-heading h2 {
+  margin: 0;
+  font-size: clamp(55px, 7vw, 105px);
+  font-weight: 900;
+  line-height: 0.82;
+  letter-spacing: -6px;
+}
+
+.corporate-lookbook-heading > p {
+  max-width: 390px;
+  margin: 0 0 5px;
+  color: #666;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.corporate-lookbook-grid {
+  width: min(1250px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.35fr 0.65fr;
+  grid-template-rows: 330px 330px 420px;
+  gap: 14px;
+}
+
+.corporate-image-card {
+  position: relative;
+  overflow: hidden;
+  background: #111;
+}
+
+.corporate-image-card img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition:
+    transform 0.7s ease,
+    filter 0.5s ease;
+}
+
+.corporate-image-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 45%,
+    rgba(0, 0, 0, 0.75)
+  );
+  pointer-events: none;
+}
+
+.corporate-image-card:hover img {
+  transform: scale(1.045);
+  filter: brightness(0.85);
+}
+
+
+/* IMAGE POSITIONS */
+
+.corporate-image-large {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+}
+
+.corporate-image-small {
+  grid-column: 2;
+}
+
+.corporate-image-small:nth-child(3) {
+  grid-row: 2;
+}
+
+.corporate-image-wide {
+  grid-column: 1 / -1;
+  grid-row: 3;
+}
+
+.corporate-image-feature {
+  display: none;
+}
+
+
+/* IMAGE LABEL */
+
+.corporate-image-label {
+  position: absolute;
+  left: 25px;
+  right: 25px;
+  bottom: 22px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  color: #fff;
+}
+
+.corporate-image-label span {
+  color: #ff5a00;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.corporate-image-label strong {
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
 }
 
 
@@ -193,10 +328,8 @@
 
 .corporate-request {
   padding: 120px 6vw 150px;
-
   background: #0a0a0a;
   color: #fff;
-
   display: grid;
   grid-template-columns: 0.8fr 1.2fr;
   gap: 100px;
@@ -210,22 +343,46 @@
 
 .corporate-request h2 {
   margin: 0;
-
   font-size: clamp(55px, 6vw, 90px);
   font-weight: 900;
   line-height: 0.84;
   letter-spacing: -5px;
 }
 
-.corporate-request-heading > p:last-child {
+.corporate-request-heading > p:not(.corporate-page-eyebrow) {
   max-width: 400px;
-
   margin-top: 35px;
-
   color: #a7a7a7;
-
   font-size: 14px;
   line-height: 1.7;
+}
+
+
+/* =========================================================
+   REQUEST PROCESS
+========================================================= */
+
+.corporate-request-note {
+  max-width: 400px;
+  margin-top: 55px;
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  row-gap: 18px;
+  align-items: center;
+}
+
+.corporate-request-note span {
+  color: #ff5a00;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.corporate-request-note p {
+  margin: 0;
+  color: #777;
+  font-size: 11px;
+  line-height: 1.5;
 }
 
 
@@ -243,11 +400,8 @@
 
 .corporate-form-group label {
   display: block;
-
   margin-bottom: 12px;
-
   color: #ff5a00;
-
   font-size: 9px;
   font-weight: 900;
   letter-spacing: 2px;
@@ -257,24 +411,16 @@
 .corporate-form-group select,
 .corporate-form-group textarea {
   box-sizing: border-box;
-
   width: 100%;
-
   padding: 18px 0;
-
   border: 0;
   border-bottom: 1px solid #454545;
   border-radius: 0;
-
   background: transparent;
-
   color: #fff;
-
   font-family: inherit;
   font-size: 14px;
-
   outline: none;
-
   transition: border-color 0.2s ease;
 }
 
@@ -300,25 +446,30 @@
 
 .corporate-form-group textarea {
   min-height: 150px;
-
   resize: vertical;
-
   line-height: 1.6;
 }
 
 
-/* FILE INPUT */
+/* =========================================================
+   FILE INPUT
+========================================================= */
 
 .corporate-form-group input[type="file"] {
   padding: 20px;
-
   border: 1px dashed #555;
-
   cursor: pointer;
 }
 
 .corporate-form-group input[type="file"]:hover {
   border-color: #ff5a00;
+}
+
+.corporate-file-note {
+  margin: 12px 0 0;
+  color: #666;
+  font-size: 10px;
+  line-height: 1.6;
 }
 
 
@@ -328,9 +479,7 @@
 
 .corporate-size-note {
   margin: -3px 0 20px;
-
   color: #777;
-
   font-size: 12px;
   line-height: 1.5;
 }
@@ -343,9 +492,7 @@
   display: grid;
   grid-template-columns: 1fr 100px;
   align-items: center;
-
   min-height: 65px;
-
   border-bottom: 1px solid #333;
 }
 
@@ -357,20 +504,14 @@
 
 .corporate-size-row input {
   width: 70px;
-
   padding: 10px;
-
   border: 1px solid #444;
-
   background: #111;
   color: #fff;
-
   font-family: inherit;
   font-size: 13px;
   font-weight: 800;
-
   text-align: center;
-
   outline: none;
 }
 
@@ -379,21 +520,20 @@
 }
 
 
-/* TOTAL */
+/* =========================================================
+   TOTAL
+========================================================= */
 
 .corporate-total {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   padding: 25px 0;
-
   border-bottom: 1px solid #333;
 }
 
 .corporate-total span {
   color: #aaa;
-
   font-size: 9px;
   font-weight: 900;
   letter-spacing: 2px;
@@ -401,7 +541,6 @@
 
 .corporate-total strong {
   color: #ff5a00;
-
   font-size: 30px;
   font-weight: 900;
 }
@@ -415,25 +554,19 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 25px;
-
   margin-top: 10px;
 }
 
 .corporate-contact-grid input {
   width: 100%;
   box-sizing: border-box;
-
   padding: 18px 0;
-
   border: 0;
   border-bottom: 1px solid #454545;
-
   background: transparent;
   color: #fff;
-
   font-family: inherit;
   font-size: 14px;
-
   outline: none;
 }
 
@@ -456,22 +589,16 @@
 
 .corporate-submit {
   width: 100%;
-
   margin-top: 55px;
   padding: 23px 28px;
-
   border: 0;
-
   background: #ff5a00;
   color: #0a0a0a;
-
   font-family: inherit;
   font-size: 11px;
   font-weight: 900;
   letter-spacing: 1.5px;
-
   cursor: pointer;
-
   transition:
     background 0.2s ease,
     color 0.2s ease,
@@ -480,15 +607,21 @@
 
 .corporate-submit span {
   margin-left: 25px;
-
   font-size: 17px;
 }
 
 .corporate-submit:hover {
   background: #fff;
   color: #0a0a0a;
-
   transform: translateY(-3px);
+}
+
+.corporate-submit-note {
+  margin: 18px 0 0;
+  color: #666;
+  font-size: 10px;
+  line-height: 1.6;
+  text-align: center;
 }
 
 
@@ -500,9 +633,7 @@
 
   .corporate-page-hero {
     grid-template-columns: 1fr;
-
     gap: 55px;
-
     padding-top: 130px;
   }
 
@@ -517,7 +648,6 @@
   .corporate-services-grid > div,
   .corporate-services-grid > div:not(:first-child) {
     padding: 35px 0;
-
     border-right: none;
     border-bottom: 1px solid rgba(10, 10, 10, 0.2);
   }
@@ -530,9 +660,44 @@
     margin-bottom: 35px;
   }
 
+  .corporate-lookbook-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .corporate-lookbook-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 360px 260px 260px 360px;
+  }
+
+  .corporate-image-large {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+
+  .corporate-image-small {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .corporate-image-small:nth-child(3) {
+    grid-row: auto;
+  }
+
+  .corporate-image-wide {
+    grid-column: 1 / -1;
+    grid-row: 4;
+  }
+
+  .corporate-image-feature {
+    display: block;
+    grid-column: 1 / -1;
+    grid-row: 3;
+  }
+
   .corporate-request {
     grid-template-columns: 1fr;
-
     gap: 65px;
   }
 
@@ -550,9 +715,7 @@
 
   .corporate-page-hero {
     min-height: auto;
-
     padding: 120px 22px 70px;
-
     gap: 45px;
   }
 
@@ -561,14 +724,26 @@
     letter-spacing: -5px;
   }
 
-  .corporate-page-hero > div:first-child > p:last-child {
+  .corporate-hero-description {
     margin-top: 28px;
-
     font-size: 14px;
+  }
+
+  .corporate-hero-meta {
+    gap: 7px;
+  }
+
+  .corporate-hero-meta span {
+    padding: 8px 10px;
+    font-size: 7px;
   }
 
   .corporate-page-hero-image {
     height: 390px;
+  }
+
+  .corporate-page-hero-image::after {
+    font-size: 45px;
   }
 
   .corporate-services {
@@ -578,7 +753,6 @@
   .corporate-services h2 {
     font-size: 55px;
     letter-spacing: -4px;
-
     margin-bottom: 50px;
   }
 
@@ -586,15 +760,64 @@
     min-height: auto;
   }
 
+  .corporate-lookbook {
+    padding: 75px 20px 90px;
+  }
+
+  .corporate-lookbook-heading {
+    margin-bottom: 45px;
+  }
+
+  .corporate-lookbook-heading h2 {
+    font-size: 55px;
+    letter-spacing: -4px;
+  }
+
+  .corporate-lookbook-heading > p {
+    font-size: 12px;
+  }
+
+  .corporate-lookbook-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(5, 300px);
+    gap: 10px;
+  }
+
+  .corporate-image-large,
+  .corporate-image-small,
+  .corporate-image-wide,
+  .corporate-image-feature {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .corporate-image-feature {
+    display: block;
+  }
+
+  .corporate-image-label {
+    left: 18px;
+    right: 18px;
+    bottom: 17px;
+  }
+
+  .corporate-image-label strong {
+    font-size: 9px;
+  }
+
   .corporate-request {
     padding: 80px 22px 100px;
-
     gap: 55px;
   }
 
   .corporate-request h2 {
     font-size: 56px;
     letter-spacing: -4px;
+  }
+
+  .corporate-request-note {
+    margin-top: 40px;
   }
 
   .corporate-contact-grid {
