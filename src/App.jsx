@@ -18,6 +18,7 @@ import Cart from "./pages/Cart";
 import Customize from "./pages/Customize";
 import CorporatePage from "./pages/CorporatePage";
 import AboutPage from "./pages/AboutPage";
+import Terms from "./pages/Terms";
 
 function App() {
   const [currentPage, setCurrentPage] = useState("home");
@@ -61,42 +62,49 @@ function App() {
       initialCategory={currentCategory}
       onNavigate={goToPage}
     />
-    <Footer />
+  <Footer onNavigate={goToPage} />
   </>
 )}
 
 {currentPage === "cart" && (
   <>
     <Cart />
-    <Footer />
+  <Footer onNavigate={goToPage} />
   </>
 )}
 
 {currentPage === "custom" && (
   <>
     <Customize />
-    <Footer />
+    <Footer onNavigate={goToPage} />
   </>
 )}
 
 {currentPage === "customize" && (
   <>
     <Customize />
-    <Footer />
+    <Footer onNavigate={goToPage} />
   </>
 )}
 
 {currentPage === "corporate" && (
   <>
     <CorporatePage />
-    <Footer />
+   <Footer onNavigate={goToPage} />
   </>
 )}
 
 {currentPage === "about" && (
   <>
     <AboutPage />
-    <Footer />
+    <Footer onNavigate={goToPage} />
+  </>
+)}
+
+{currentPage === "terms" && (
+  <>
+    <Terms />
+    <Footer onNavigate={goToPage} />
   </>
 )}
 

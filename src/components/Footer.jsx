@@ -1,4 +1,4 @@
-function Footer() {
+function Footer({ onNavigate }) {
   return (
     <footer className="site-footer">
       <div className="footer-inner">
@@ -17,35 +17,83 @@ function Footer() {
         {/* LINKS */}
         <div className="footer-links">
 
+          {/* EXPLORE */}
           <div className="footer-column">
             <p className="footer-title">EXPLORE</p>
 
-            <a href="#shop">SHOP</a>
-            <a href="#creations">LOOKBOOK</a>
-            <a href="#about">ABOUT</a>
+            <button
+              type="button"
+              onClick={() => onNavigate?.("shop")}
+            >
+              SHOP
+            </button>
+
+            <button
+              type="button"
+              onClick={() => onNavigate?.("home")}
+            >
+              LOOKBOOK
+            </button>
+
+            <button
+              type="button"
+              onClick={() => onNavigate?.("about")}
+            >
+              ABOUT
+            </button>
           </div>
 
+
+          {/* SERVICES */}
           <div className="footer-column">
             <p className="footer-title">SERVICES</p>
 
-            <a href="#customize">
+            <button
+              type="button"
+              onClick={() => onNavigate?.("customize")}
+            >
               CUSTOM PRINTING
-            </a>
+            </button>
 
-            <a href="#corporate">
+            <button
+              type="button"
+              onClick={() => onNavigate?.("corporate")}
+            >
               CORPORATE & BULK
-            </a>
+            </button>
           </div>
 
+
+          {/* CUSTOMER */}
+          <div className="footer-column">
+            <p className="footer-title">CUSTOMER</p>
+
+            <button
+              type="button"
+              onClick={() => onNavigate?.("terms")}
+            >
+              TERMS & CONDITIONS
+            </button>
+
+            <button
+              type="button"
+              onClick={() => onNavigate?.("shop")}
+            >
+              SIZE GUIDE
+            </button>
+          </div>
+
+
+          {/* CONTACT */}
           <div className="footer-column">
             <p className="footer-title">CONTACT</p>
 
-            <a href="tel:+254745848537">
-              0745 848 537
+            <a href="tel:+254704547072">
+              0704 547 072
             </a>
 
             <a
-              href="https://wa.me/254745848537"
+              href="https://wa.me/254704547072"
               target="_blank"
               rel="noreferrer"
             >
@@ -67,14 +115,15 @@ function Footer() {
             >
               TIKTOK
             </a>
-
           </div>
 
         </div>
       </div>
 
+
       {/* LOCATION */}
       <div className="footer-location">
+
         <div>
           <span>VISIT US</span>
 
@@ -93,7 +142,39 @@ function Footer() {
         >
           GET DIRECTIONS ↗
         </a>
+
       </div>
+
+
+      {/* TERMS / TRUST STRIP */}
+      <div className="footer-trust">
+
+        <div>
+          <span>🚚</span>
+          <strong>SAME DAY DELIVERY</strong>
+          <small>Orders before 10AM</small>
+        </div>
+
+        <div>
+          <span>🛡️</span>
+          <strong>SECURE PAYMENT</strong>
+          <small>Pay or deposit to confirm</small>
+        </div>
+
+        <div>
+          <span>📏</span>
+          <strong>USE THE SIZE GUIDE</strong>
+          <small>Get the right fit</small>
+        </div>
+
+        <div>
+          <span>📷</span>
+          <strong>ARTWORK PREVIEW</strong>
+          <small>Ask about available colours</small>
+        </div>
+
+      </div>
+
 
       {/* BOTTOM */}
       <div className="footer-bottom">
@@ -102,11 +183,19 @@ function Footer() {
           © 2026 TeeMeme. All rights reserved.
         </p>
 
+        <button
+          type="button"
+          onClick={() => onNavigate?.("terms")}
+        >
+          TERMS & CONDITIONS
+        </button>
+
         <p>
           NAIROBI, KENYA.
         </p>
 
       </div>
+
     </footer>
   );
 }

@@ -1,0 +1,442 @@
+/* =========================================================
+   TEEMEME — TERMS & CONDITIONS
+========================================================= */
+
+.terms-page {
+  min-height: 100vh;
+  background: #f3eee6;
+  color: #0a0a0a;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.terms-hero {
+  position: relative;
+  min-height: 65vh;
+  padding: 150px 6vw 100px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  background: #0a0a0a;
+  color: #fff;
+}
+
+.terms-hero-inner {
+  position: relative;
+  z-index: 2;
+  width: min(1000px, 100%);
+}
+
+.terms-eyebrow,
+.terms-section-label,
+.terms-item-eyebrow {
+  color: #ff5a00;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 2.5px;
+}
+
+.terms-eyebrow {
+  margin: 0 0 25px;
+}
+
+.terms-hero h1 {
+  margin: 0;
+  font-size: clamp(70px, 10vw, 145px);
+  line-height: 0.8;
+  letter-spacing: -8px;
+  font-weight: 900;
+}
+
+.terms-hero h1 span,
+.terms-content-header h2 span,
+.terms-item-content h3 span,
+.terms-cta h2 span {
+  color: #ff5a00;
+}
+
+.terms-intro {
+  max-width: 520px;
+  margin: 38px 0 0;
+  color: #aaa;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.terms-hero-mark {
+  position: absolute;
+  right: -30px;
+  bottom: -45px;
+  color: rgba(255, 255, 255, 0.035);
+  font-size: clamp(130px, 20vw, 300px);
+  font-weight: 900;
+  line-height: 0.7;
+  letter-spacing: -12px;
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.terms-content {
+  width: min(1200px, 100%);
+  margin: 0 auto;
+  padding: 110px 5vw 140px;
+}
+
+.terms-content-header {
+  max-width: 760px;
+  margin-bottom: 80px;
+}
+
+.terms-section-label {
+  margin: 0 0 18px;
+}
+
+.terms-content-header h2,
+.terms-cta h2 {
+  margin: 0;
+  font-size: clamp(55px, 7vw, 100px);
+  line-height: 0.84;
+  letter-spacing: -6px;
+  font-weight: 900;
+}
+
+.terms-content-header > p:last-child {
+  max-width: 600px;
+  margin: 35px 0 0;
+  color: #666;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+
+/* =========================================================
+   TERMS ITEMS
+========================================================= */
+
+.terms-item {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 45px;
+  padding: 80px 0;
+  border-top: 1px solid rgba(10, 10, 10, 0.15);
+}
+
+.terms-number {
+  color: #ff5a00;
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.terms-item-content {
+  max-width: 780px;
+}
+
+.terms-item-eyebrow {
+  margin: 0 0 15px;
+  font-size: 9px;
+}
+
+.terms-item-content h3 {
+  margin: 0 0 35px;
+  font-size: clamp(45px, 5vw, 72px);
+  line-height: 0.87;
+  letter-spacing: -4px;
+  font-weight: 900;
+}
+
+.terms-item-content > p {
+  max-width: 680px;
+  margin: 0 0 20px;
+  color: #5f5f5f;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.terms-item-content strong {
+  color: #0a0a0a;
+  font-weight: 900;
+}
+
+
+/* =========================================================
+   NOTES / WARNINGS
+========================================================= */
+
+.terms-note,
+.terms-warning {
+  margin-top: 30px;
+  padding: 25px;
+  border-left: 3px solid #ff5a00;
+  background: rgba(255, 90, 0, 0.06);
+}
+
+.terms-warning {
+  background: rgba(10, 10, 10, 0.05);
+}
+
+.terms-note > strong,
+.terms-warning > span {
+  display: block;
+  margin-bottom: 10px;
+  color: #ff5a00;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.terms-note p,
+.terms-warning p {
+  margin: 0;
+  color: #555;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   SIZE BUTTON
+========================================================= */
+
+.terms-size-button {
+  margin-top: 25px;
+  padding: 14px 20px;
+  border: 1px solid #0a0a0a;
+  background: transparent;
+  color: #0a0a0a;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.terms-size-button:hover {
+  background: #0a0a0a;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   HIGHLIGHTS
+========================================================= */
+
+.terms-highlights {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: 30px;
+  border-top: 1px solid rgba(10, 10, 10, 0.2);
+  border-bottom: 1px solid rgba(10, 10, 10, 0.2);
+}
+
+.terms-highlights > div {
+  min-height: 220px;
+  padding: 30px 25px;
+  border-right: 1px solid rgba(10, 10, 10, 0.2);
+}
+
+.terms-highlights > div:last-child {
+  border-right: none;
+}
+
+.terms-highlights span {
+  display: block;
+  margin-bottom: 45px;
+  font-size: 25px;
+}
+
+.terms-highlights strong {
+  display: block;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+}
+
+.terms-highlights p {
+  margin: 12px 0 0;
+  color: #777;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   CTA
+========================================================= */
+
+.terms-cta {
+  margin-top: 120px;
+  padding: 80px 7vw;
+  background: #0a0a0a;
+  color: #fff;
+}
+
+.terms-cta h2 {
+  margin-top: 10px;
+}
+
+.terms-cta > p:not(.terms-section-label) {
+  max-width: 500px;
+  margin: 35px 0;
+  color: #aaa;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.terms-whatsapp-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  min-height: 58px;
+  padding: 0 25px;
+  background: #ff5a00;
+  color: #0a0a0a;
+  text-decoration: none;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1.3px;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.terms-whatsapp-button span {
+  font-size: 17px;
+}
+
+.terms-whatsapp-button:hover {
+  background: #fff;
+  transform: translateY(-3px);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .terms-hero {
+    min-height: 60vh;
+    padding: 130px 6vw 80px;
+  }
+
+  .terms-item {
+    grid-template-columns: 60px 1fr;
+    gap: 25px;
+  }
+
+  .terms-highlights {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .terms-highlights > div:nth-child(2) {
+    border-right: none;
+  }
+
+  .terms-highlights > div:nth-child(-n + 2) {
+    border-bottom: 1px solid rgba(10, 10, 10, 0.2);
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .terms-hero {
+    min-height: 65vh;
+    padding: 120px 22px 65px;
+  }
+
+  .terms-hero h1 {
+    font-size: 68px;
+    letter-spacing: -5px;
+  }
+
+  .terms-intro {
+    margin-top: 28px;
+    font-size: 14px;
+  }
+
+  .terms-hero-mark {
+    right: -20px;
+    bottom: -20px;
+    font-size: 100px;
+  }
+
+  .terms-content {
+    padding: 70px 20px 90px;
+  }
+
+  .terms-content-header {
+    margin-bottom: 55px;
+  }
+
+  .terms-content-header h2,
+  .terms-cta h2 {
+    font-size: 55px;
+    letter-spacing: -4px;
+  }
+
+  .terms-item {
+    display: block;
+    padding: 60px 0;
+  }
+
+  .terms-number {
+    margin-bottom: 20px;
+  }
+
+  .terms-item-content h3 {
+    font-size: 48px;
+    letter-spacing: -3px;
+    margin-bottom: 28px;
+  }
+
+  .terms-item-content > p {
+    font-size: 13px;
+  }
+
+  .terms-highlights {
+    grid-template-columns: 1fr;
+  }
+
+  .terms-highlights > div {
+    min-height: auto;
+    padding: 25px 20px;
+    border-right: none;
+    border-bottom: 1px solid rgba(10, 10, 10, 0.2);
+  }
+
+  .terms-highlights > div:last-child {
+    border-bottom: none;
+  }
+
+  .terms-highlights span {
+    margin-bottom: 25px;
+  }
+
+  .terms-cta {
+    margin-top: 75px;
+    padding: 60px 25px;
+  }
+
+  .terms-whatsapp-button {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
