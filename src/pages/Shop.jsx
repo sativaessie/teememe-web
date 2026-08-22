@@ -4,11 +4,10 @@ import products from "../data/products";
 import ProductCard from "../components/ProductCard";
 
 
-function Shop({ initialCategory = "ALL" }) {
+function Shop({ initialCategory = "ALL", onNavigate }) {
   const [activeCategory, setActiveCategory] = useState(
-    initialCategory || "ALL"
-  );
-
+  (initialCategory || "ALL").toUpperCase()
+);
   const categories = [
     "ALL",
     "STATEMENT TEES",
@@ -20,10 +19,9 @@ function Shop({ initialCategory = "ALL" }) {
     "CORPORATE & BULK",
   ];
 
-  useEffect(() => {
-    setActiveCategory(initialCategory || "ALL");
-  }, [initialCategory]);
-
+ useEffect(() => {
+  setActiveCategory((initialCategory || "ALL").toUpperCase());
+}, [initialCategory]);
   const filteredProducts =
     activeCategory === "ALL"
       ? products
@@ -33,7 +31,7 @@ function Shop({ initialCategory = "ALL" }) {
         );
 
   const handleCategoryChange = (category) => {
-    setActiveCategory(category);
+  setActiveCategory(category.toUpperCase());
 
     document
       .getElementById("shop-products")
@@ -375,13 +373,14 @@ function Shop({ initialCategory = "ALL" }) {
 
         </div>
 
-        <a
-          href="/customize"
-          className="shop-custom-button"
-        >
-          CREATE YOUR OWN
-          <span>↗</span>
-        </a>
+       <button
+  type="button"
+  className="shop-custom-button"
+  onClick={() => onNavigate("customize")}
+>
+  CREATE YOUR OWN
+  <span>↗</span>
+</button>
 
       </section>
 

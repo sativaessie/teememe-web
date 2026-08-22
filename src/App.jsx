@@ -57,7 +57,10 @@ function App() {
 
 {currentPage === "shop" && (
   <>
-    <Shop initialCategory={currentCategory} />
+    <Shop
+      initialCategory={currentCategory}
+      onNavigate={goToPage}
+    />
     <Footer />
   </>
 )}
