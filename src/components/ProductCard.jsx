@@ -2,7 +2,7 @@ import { FiHeart, FiShoppingBag } from "react-icons/fi";
 import { useCart } from "../context/CartContext";
 import "./ProductCard.css";
 
-function ProductCard({ product }) {
+function ProductCard({ product, onNavigate }) {
   const { addToCart } = useCart();
 
   return (
@@ -26,10 +26,16 @@ function ProductCard({ product }) {
           <FiHeart size={17} />
         </button>
 
-        <img
-          src={product.image}
-          alt={product.name}
-        />
+        <button
+  type="button"
+  className="product-card-image-button"
+  onClick={() => onNavigate("product", product.category, product)}
+>
+  <img
+    src={product.image}
+    alt={product.name}
+  />
+</button>
 
         <button
           type="button"
@@ -59,10 +65,11 @@ function ProductCard({ product }) {
           </h3>
 
         </div>
-
-        <p className="product-card-price">
-          KSh {product.price.toLocaleString()}
-        </p>
+         <p className="product-card-price">
+  {product.quoteOnly
+    ? "REQUEST A QUOTE"
+    : `KSh ${product.price.toLocaleString()}`}
+</p>
 
       </div>
 

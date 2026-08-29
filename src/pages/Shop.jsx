@@ -1,7 +1,8 @@
 import "./Shop.css";
 import { useEffect, useState } from "react";
-import products from "../data/products";
+import shopCatalogue from "../data/shopCatalogue";
 import ProductCard from "../components/ProductCard";
+
 
 
 function Shop({ initialCategory = "ALL", onNavigate }) {
@@ -23,12 +24,12 @@ function Shop({ initialCategory = "ALL", onNavigate }) {
   setActiveCategory((initialCategory || "ALL").toUpperCase());
 }, [initialCategory]);
   const filteredProducts =
-    activeCategory === "ALL"
-      ? products
-      : products.filter(
-          (product) =>
-            product.category?.toUpperCase() === activeCategory
-        );
+  activeCategory === "ALL"
+    ? shopCatalogue
+    : shopCatalogue.filter(
+        (product) =>
+          product.category?.toUpperCase() === activeCategory
+      );
 
   const handleCategoryChange = (category) => {
   setActiveCategory(category.toUpperCase());
@@ -216,12 +217,13 @@ function Shop({ initialCategory = "ALL", onNavigate }) {
 
           <div className="shop-product-grid">
 
-            {filteredProducts.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-              />
-            ))}
+           {filteredProducts.map((product) => (
+  <ProductCard
+    key={product.id}
+    product={product}
+    onNavigate={onNavigate}
+  />
+))}
 
           </div>
 

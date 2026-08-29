@@ -19,16 +19,19 @@ import Customize from "./pages/Customize";
 import CorporatePage from "./pages/CorporatePage";
 import AboutPage from "./pages/AboutPage";
 import Terms from "./pages/Terms";
+import ProductDetails from "./pages/ProductDetails";
 
 function App() {
   const [currentPage, setCurrentPage] = useState("home");
-  const [currentCategory, setCurrentCategory] = useState("ALL");
+const [currentCategory, setCurrentCategory] = useState("ALL");
+const [selectedProduct, setSelectedProduct] = useState(null);
 
-  const goToPage = (page, category = "ALL") => {
-    setCurrentPage(page);
-    setCurrentCategory(category);
-    window.scrollTo(0, 0);
-  };
+     const goToPage = (page, category = "ALL", product = null) => {
+  setCurrentPage(page);
+  setCurrentCategory(category);
+  setSelectedProduct(product);
+  window.scrollTo(0, 0);
+};
 
   return (
     <div className="site">
@@ -63,6 +66,16 @@ function App() {
       onNavigate={goToPage}
     />
   <Footer onNavigate={goToPage} />
+  </>
+)}
+
+{currentPage === "product" && (
+  <>
+    <ProductDetails
+      product={selectedProduct}
+      onNavigate={goToPage}
+    />
+    <Footer onNavigate={goToPage} />
   </>
 )}
 
