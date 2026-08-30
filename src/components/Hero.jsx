@@ -9,6 +9,7 @@ function Hero({ onNavigate }) {
         loop
         playsInline
         poster="/hero.jpg"
+        preload="metadata"
       >
         <source src="/hero.mp4" type="video/mp4" />
       </video>
