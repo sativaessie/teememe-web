@@ -1,11 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Customize.css";
+
+const WHATSAPP_NUMBER = "254704547072";
 
 function Customize() {
   const [showSizeGuide, setShowSizeGuide] = useState(false);
+   const [showWhatsAppNotice, setShowWhatsAppNotice] = useState(false);
+
   const [garment, setGarment] = useState("T-Shirt");
   const [printType, setPrintType] = useState("Front");
-  const [fileName, setFileName] = useState("");
+
+  const [file, setFile] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState("");
+
+  const [garmentColor, setGarmentColor] = useState("");
+  const [designDescription, setDesignDescription] = useState("");
+  const [additionalNotes, setAdditionalNotes] = useState("");
+
+  const [customerName, setCustomerName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [location, setLocation] = useState("");
 
   const [sizes, setSizes] = useState({
     "6–8 UK": 0,
@@ -15,10 +30,25 @@ function Customize() {
     "18–20 UK": 0,
   });
 
+  // Create and clean up image preview
+  useEffect(() => {
+    if (!file || !file.type.startsWith("image/")) {
+      setPreviewUrl("");
+      return;
+    }
+
+    const url = URL.createObjectURL(file);
+    setPreviewUrl(url);
+
+    return () => URL.revokeObjectURL(url);
+  }, [file]);
+
   const updateSize = (size, value) => {
+    const quantity = Number(value);
+
     setSizes((current) => ({
       ...current,
-      [size]: Math.max(0, Number(value)),
+      [size]: Number.isNaN(quantity) ? 0 : Math.max(0, quantity),
     }));
   };
 
@@ -28,34 +58,157 @@ function Customize() {
   );
 
   const handleFileChange = (event) => {
-    const file = event.target.files[0];
+    const selectedFile = event.target.files?.[0];
 
-    if (file) {
-      setFileName(file.name);
+    if (!selectedFile) {
+      return;
     }
+
+    const allowedTypes = [
+      "image/jpeg",
+      "image/png",
+      "image/webp",
+      "image/gif",
+      "application/pdf",
+    ];
+
+    if (!allowedTypes.includes(selectedFile.type)) {
+      alert("Please upload a PNG, JPG, WEBP, GIF or PDF file.");
+      event.target.value = "";
+      return;
+    }
+
+    // Keep file size reasonable for a WhatsApp workflow
+    const maxSize = 10 * 1024 * 1024;
+
+    if (selectedFile.size > maxSize) {
+      alert("Please choose a file smaller than 10MB.");
+      event.target.value = "";
+      return;
+    }
+
+    setFile(selectedFile);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    alert(
-      `Custom request received! ${totalQuantity} item${
-        totalQuantity === 1 ? "" : "s"
-      } requested.`
-    );
+  const removeFile = () => {
+    setFile(null);
+    setPreviewUrl("");
   };
+
+
+    const handleSubmit = (event) => {
+  event.preventDefault();
+
+  if (!garment) {
+    alert("Please select a garment type.");
+    return;
+  }
+
+  if (!garmentColor) {
+    alert("Please select a garment colour.");
+    return;
+  }
+
+  if (totalQuantity === 0) {
+    alert("Please enter at least one item quantity.");
+    return;
+  }
+
+  if (!file && !designDescription.trim()) {
+    alert("Please upload your design or describe what you would like.");
+    return;
+  }
+
+  if (!customerName.trim()) {
+    alert("Please enter your name.");
+    return;
+  }
+
+  if (!phone.trim()) {
+    alert("Please enter your phone number.");
+    return;
+  }
+
+  if (!location.trim()) {
+    alert("Please enter your location.");
+    return;
+  }
+
+  setShowWhatsAppNotice(true);
+};
+
+  const sizeDetails = Object.entries(sizes)
+  .filter(([, quantity]) => quantity > 0)
+  .map(([size, quantity]) => `${size}: ${quantity}`)
+  .join("\n");
+
+    const continueToWhatsApp = () => {
+  const sizeDetails = Object.entries(sizes)
+    .filter(([, quantity]) => quantity > 0)
+    .map(([size, quantity]) => `${size}: ${quantity}`)
+    .join("\n");
+
+  const message = `Hi TeeMeme!
+
+I'd like to make a custom order.
+
+--------------------
+CUSTOM ORDER
+--------------------
+
+Garment: ${garment}
+Garment Colour: ${garmentColor}
+Print Placement: ${printType}
+
+QUANTITY
+${sizeDetails}
+
+TOTAL ITEMS: ${totalQuantity}
+
+--------------------
+DESIGN
+--------------------
+
+${file ? `Design file: ${file.name}` : "No design file uploaded."}
+
+${
+  designDescription.trim()
+    ? `Design description: ${designDescription.trim()}`
+    : ""
+}
+
+--------------------
+ADDITIONAL NOTES
+--------------------
+
+${additionalNotes.trim() || "None"}
+
+--------------------
+CUSTOMER DETAILS
+--------------------
+
+Name: ${customerName}
+Phone: ${phone}
+Email: ${email || "Not provided"}
+Location: ${location}
+  Thank you!
+`;
+
+  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+    message
+  )}`;
+
+  window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+
+  setShowWhatsAppNotice(false);
+};
 
   return (
     <main className="custom-page">
-
       {/* HERO */}
-
       <section className="custom-page-hero">
-
         <div>
-          <p className="custom-eyebrow">
-            CUSTOM PRINTING
-          </p>
+          <p className="custom-eyebrow">CUSTOM PRINTING</p>
 
           <h1>
             MAKE IT.
@@ -64,38 +217,21 @@ function Customize() {
           </h1>
 
           <p>
-            Got an idea? A birthday coming up?
-            Matching tees with your people?
-            Tell us what you're thinking and
-            we'll bring it to life.
+            Got an idea? A birthday coming up? Matching tees with your people?
+            Tell us what you're thinking and we'll bring it to life.
           </p>
         </div>
-
       </section>
 
-
       {/* FORM */}
-
       <section className="custom-order-section">
-
-        <form
-          className="custom-order-form"
-          onSubmit={handleSubmit}
-        >
-
+        <form className="custom-order-form" onSubmit={handleSubmit}>
           {/* 01 — GARMENT */}
-
           <div className="custom-form-section">
-
-            <div className="custom-form-number">
-              01
-            </div>
+            <div className="custom-form-number">01</div>
 
             <div className="custom-form-content">
-
-              <p className="custom-form-eyebrow">
-                START HERE
-              </p>
+              <p className="custom-form-eyebrow">START HERE</p>
 
               <h2>
                 WHAT ARE WE
@@ -104,44 +240,30 @@ function Customize() {
               </h2>
 
               <div className="custom-choice-grid">
-
-                {["T-Shirt", "Hoodie", "Cap", "Other"].map(
-                  (item) => (
-                    <button
-                      type="button"
-                      key={item}
-                      className={
-                        garment === item
-                          ? "custom-choice active"
-                          : "custom-choice"
-                      }
-                      onClick={() => setGarment(item)}
-                    >
-                      {item}
-                    </button>
-                  )
-                )}
-
+                {["T-Shirt", "Hoodie", "Cap", "Other"].map((item) => (
+                  <button
+                    type="button"
+                    key={item}
+                    className={
+                      garment === item
+                        ? "custom-choice active"
+                        : "custom-choice"
+                    }
+                    onClick={() => setGarment(item)}
+                  >
+                    {item}
+                  </button>
+                ))}
               </div>
-
             </div>
-
           </div>
 
-
           {/* 02 — DESIGN */}
-
           <div className="custom-form-section">
-
-            <div className="custom-form-number">
-              02
-            </div>
+            <div className="custom-form-number">02</div>
 
             <div className="custom-form-content">
-
-              <p className="custom-form-eyebrow">
-                YOUR IDEA
-              </p>
+              <p className="custom-form-eyebrow">YOUR IDEA</p>
 
               <h2>
                 SHOW US
@@ -150,49 +272,82 @@ function Customize() {
               </h2>
 
               <label className="custom-upload">
-
                 <input
                   type="file"
-                  accept="image/*,.pdf"
+                  accept="image/png,image/jpeg,image/webp,image/gif,application/pdf"
                   onChange={handleFileChange}
                 />
 
                 <span className="upload-title">
-                  {fileName
-                    ? fileName
-                    : "UPLOAD YOUR DESIGN"}
+                  {file ? file.name : "UPLOAD YOUR DESIGN"}
                 </span>
+
+                {file && file.type.startsWith("image/") && previewUrl && (
+                  <div className="custom-preview-wrapper">
+                    <img
+                      src={previewUrl}
+                      alt="Design preview"
+                      className="custom-design-preview"
+                    />
+
+                    <button
+                      type="button"
+                      className="custom-remove-file"
+                      onClick={(event) => {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        removeFile();
+                      }}
+                    >
+                      REMOVE DESIGN
+                    </button>
+                  </div>
+                )}
+
+                {file && file.type === "application/pdf" && (
+                  <div className="custom-pdf-preview">
+                    <span>PDF</span>
+                    <p>DESIGN FILE ATTACHED</p>
+
+                    <button
+                      type="button"
+                      className="custom-remove-file"
+                      onClick={(event) => {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        removeFile();
+                      }}
+                    >
+                      REMOVE FILE
+                    </button>
+                  </div>
+                )}
 
                 <span className="upload-subtitle">
-                  PNG, JPG or PDF
+                  {file
+                    ? "DESIGN READY — CLICK TO REPLACE"
+                    : "PNG, JPG, WEBP or PDF • MAX 10MB"}
                 </span>
-
               </label>
 
               <textarea
                 className="custom-textarea"
                 placeholder="Or tell us what you have in mind..."
                 rows="5"
+                value={designDescription}
+                onChange={(event) =>
+                  setDesignDescription(event.target.value)
+                }
               />
-
             </div>
-
           </div>
 
-
           {/* 03 — COLOUR + PRINT */}
-
           <div className="custom-form-section">
-
-            <div className="custom-form-number">
-              03
-            </div>
+            <div className="custom-form-number">03</div>
 
             <div className="custom-form-content">
-
-              <p className="custom-form-eyebrow">
-                THE DETAILS
-              </p>
+              <p className="custom-form-eyebrow">THE DETAILS</p>
 
               <h2>
                 MAKE IT
@@ -203,68 +358,57 @@ function Customize() {
               <label className="custom-label">
                 GARMENT COLOUR
 
-                <select defaultValue="">
+                <select
+                  value={garmentColor}
+                  onChange={(event) =>
+                    setGarmentColor(event.target.value)
+                  }
+                  required
+                >
                   <option value="" disabled>
                     Select a colour
                   </option>
-                  <option>Black</option>
-                  <option>White</option>
-                  <option>Green</option>
-                  <option>Orange</option>
-                  <option>Grey</option>
-                  <option>Other</option>
+
+                  <option value="Black">Black</option>
+                  <option value="White">White</option>
+                  <option value="Green">Green</option>
+                  <option value="Orange">Orange</option>
+                  <option value="Grey">Grey</option>
+                  <option value="Other">Other</option>
                 </select>
               </label>
-
 
               <div className="custom-label">
                 PRINT PLACEMENT
 
                 <div className="custom-choice-grid">
-
-                  {[
-                    "Front",
-                    "Back",
-                    "Front + Back",
-                    "Sleeve",
-                  ].map((item) => (
-                    <button
-                      type="button"
-                      key={item}
-                      className={
-                        printType === item
-                          ? "custom-choice active"
-                          : "custom-choice"
-                      }
-                      onClick={() =>
-                        setPrintType(item)
-                      }
-                    >
-                      {item}
-                    </button>
-                  ))}
-
+                  {["Front", "Back", "Front + Back", "Sleeve"].map(
+                    (item) => (
+                      <button
+                        type="button"
+                        key={item}
+                        className={
+                          printType === item
+                            ? "custom-choice active"
+                            : "custom-choice"
+                        }
+                        onClick={() => setPrintType(item)}
+                      >
+                        {item}
+                      </button>
+                    )
+                  )}
                 </div>
               </div>
-
             </div>
-
           </div>
 
-
           {/* 04 — SIZES */}
-
           <div className="custom-form-section">
-
-            <div className="custom-form-number">
-              04
-            </div>
+            <div className="custom-form-number">04</div>
 
             <div className="custom-form-content">
-
-              <p className="custom-form-eyebrow">
-                FIT & QUANTITY
-              </p>
+              <p className="custom-form-eyebrow">FIT & QUANTITY</p>
 
               <h2>
                 GET THE
@@ -281,53 +425,36 @@ function Customize() {
               </button>
 
               <div className="custom-size-list">
-
                 {Object.keys(sizes).map((size) => (
-                  <div
-                    className="custom-size-row"
-                    key={size}
-                  >
+                  <div className="custom-size-row" key={size}>
                     <span>{size}</span>
 
                     <input
                       type="number"
                       min="0"
+                      step="1"
                       value={sizes[size]}
                       onChange={(event) =>
-                        updateSize(
-                          size,
-                          event.target.value
-                        )
+                        updateSize(size, event.target.value)
                       }
                     />
                   </div>
                 ))}
-
               </div>
 
               <div className="custom-total">
                 <span>TOTAL ITEMS</span>
                 <strong>{totalQuantity}</strong>
               </div>
-
             </div>
-
           </div>
 
-
           {/* 05 — NOTES */}
-
           <div className="custom-form-section">
-
-            <div className="custom-form-number">
-              05
-            </div>
+            <div className="custom-form-number">05</div>
 
             <div className="custom-form-content">
-
-              <p className="custom-form-eyebrow">
-                ANYTHING ELSE?
-              </p>
+              <p className="custom-form-eyebrow">ANYTHING ELSE?</p>
 
               <h2>
                 TELL US
@@ -339,26 +466,20 @@ function Customize() {
                 className="custom-textarea"
                 placeholder="Colours, names, dates, special instructions, deadlines..."
                 rows="6"
+                value={additionalNotes}
+                onChange={(event) =>
+                  setAdditionalNotes(event.target.value)
+                }
               />
-
             </div>
-
           </div>
 
-
           {/* 06 — CONTACT */}
-
           <div className="custom-form-section">
-
-            <div className="custom-form-number">
-              06
-            </div>
+            <div className="custom-form-number">06</div>
 
             <div className="custom-form-content">
-
-              <p className="custom-form-eyebrow">
-                LAST THING
-              </p>
+              <p className="custom-form-eyebrow">LAST THING</p>
 
               <h2>
                 HOW DO WE
@@ -367,45 +488,52 @@ function Customize() {
               </h2>
 
               <div className="custom-contact-grid">
-
                 <input
                   type="text"
                   placeholder="Your name"
+                  value={customerName}
+                  onChange={(event) =>
+                    setCustomerName(event.target.value)
+                  }
                   required
                 />
 
                 <input
                   type="tel"
                   placeholder="Phone number"
+                  value={phone}
+                  onChange={(event) => setPhone(event.target.value)}
                   required
                 />
 
                 <input
                   type="email"
                   placeholder="Email address"
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
                 />
 
                 <input
                   type="text"
                   placeholder="Location"
+                  value={location}
+                  onChange={(event) =>
+                    setLocation(event.target.value)
+                  }
                   required
                 />
-
               </div>
-
             </div>
-
           </div>
 
-
           {/* SUBMIT */}
-
           <div className="custom-submit-area">
-
             <p>
-              No pressure. No complicated process.
+              Your request goes straight to TeeMeme on WhatsApp.
               <br />
-              Just tell us what you're thinking.
+              {file
+                ? "Your design will also be ready for you to attach."
+                : "We'll discuss your design with you on WhatsApp."}
             </p>
 
             <button
@@ -415,29 +543,20 @@ function Customize() {
               SEND CUSTOM REQUEST
               <span>↗</span>
             </button>
-
           </div>
-
         </form>
-
       </section>
 
-
       {/* SIZE GUIDE MODAL */}
-
       {showSizeGuide && (
         <div
           className="size-guide-overlay"
           onClick={() => setShowSizeGuide(false)}
         >
-
           <div
             className="size-guide-modal"
-            onClick={(event) =>
-              event.stopPropagation()
-            }
+            onClick={(event) => event.stopPropagation()}
           >
-
             <button
               type="button"
               className="size-guide-close"
@@ -450,12 +569,81 @@ function Customize() {
               src="/images/teememe-size-guide.jpg"
               alt="TeeMeme size guide"
             />
-
           </div>
-
         </div>
       )}
 
+      {showWhatsAppNotice && (
+  <div
+    className="whatsapp-notice-overlay"
+    onClick={() => setShowWhatsAppNotice(false)}
+  >
+    <div
+      className="whatsapp-notice-modal"
+      onClick={(event) => event.stopPropagation()}
+    >
+      <button
+        type="button"
+        className="whatsapp-notice-close"
+        onClick={() => setShowWhatsAppNotice(false)}
+      >
+        ×
+      </button>
+
+      <p className="whatsapp-notice-eyebrow">
+        ONE LAST STEP
+      </p>
+
+      <h2>
+        YOUR REQUEST
+        <br />
+        <span>IS READY.</span>
+      </h2>
+
+      <p className="whatsapp-notice-text">
+        We've got all your custom order details.
+      </p>
+
+      {file && (
+        <div className="whatsapp-file-reminder">
+          <strong>{file.name}</strong>
+          <span>
+            Your design is ready to be attached.
+          </span>
+        </div>
+      )}
+
+      <div className="whatsapp-instruction">
+        <strong>Before you send:</strong>
+
+        <p>
+          When WhatsApp opens, please attach your
+          {file?.type === "application/pdf"
+            ? " PDF design file"
+            : " design image"}{" "}
+          to the chat.
+        </p>
+      </div>
+
+      <button
+        type="button"
+        className="whatsapp-continue-button"
+        onClick={continueToWhatsApp}
+      >
+        CONTINUE TO WHATSAPP
+        <span>↗</span>
+      </button>
+
+      <button
+        type="button"
+        className="whatsapp-back-button"
+        onClick={() => setShowWhatsAppNotice(false)}
+      >
+        GO BACK & EDIT
+      </button>
+    </div>
+  </div>
+)}
     </main>
   );
 }

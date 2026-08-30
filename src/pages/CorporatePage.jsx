@@ -13,6 +13,8 @@ function CorporatePage() {
   const [company, setCompany] = useState("");
   const [orderType, setOrderType] = useState("");
   const [colour, setColour] = useState("");
+  const [file, setFile] = useState(null);
+  const [showWhatsAppNotice, setShowWhatsAppNotice] = useState(false);
   const [deadline, setDeadline] = useState("");
   const [notes, setNotes] = useState("");
   const [name, setName] = useState("");
@@ -31,15 +33,65 @@ function CorporatePage() {
     0
   );
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+     const handleSubmit = (event) => {
+  event.preventDefault();
 
-    const sizeBreakdown = Object.entries(sizes)
-      .filter(([, quantity]) => quantity > 0)
-      .map(([size, quantity]) => `${size}: ${quantity}`)
-      .join("\n");
+  if (!company.trim()) {
+    alert("Please enter your company or organisation.");
+    return;
+  }
 
-    const message = `TEE-MEME CORPORATE / BULK REQUEST
+  if (!orderType) {
+    alert("Please select what you are ordering.");
+    return;
+  }
+
+  if (!colour) {
+    alert("Please select a garment colour.");
+    return;
+  }
+
+  if (totalQuantity === 0) {
+    alert("Please enter at least one quantity.");
+    return;
+  }
+
+  if (!deadline) {
+    alert("Please select your deadline.");
+    return;
+  }
+
+  if (!name.trim()) {
+    alert("Please enter your name.");
+    return;
+  }
+
+  if (!phone.trim()) {
+    alert("Please enter your phone number.");
+    return;
+  }
+
+  if (!email.trim()) {
+    alert("Please enter your email address.");
+    return;
+  }
+
+  setShowWhatsAppNotice(true);
+};
+
+const continueToWhatsApp = () => {
+  const sizeBreakdown = Object.entries(sizes)
+    .filter(([, quantity]) => quantity > 0)
+    .map(([size, quantity]) => `${size}: ${quantity}`)
+    .join("\n");
+
+  const message = `Hi TeeMeme!
+
+I'd like to request a corporate / bulk order.
+
+--------------------
+CORPORATE / BULK ORDER
+--------------------
 
 COMPANY
 Company / Organisation: ${company}
@@ -55,23 +107,40 @@ ${sizeBreakdown || "No quantities entered yet."}
 DEADLINE
 ${deadline || "Not specified"}
 
+--------------------
+LOGO / DESIGN
+--------------------
+
+${file ? `File: ${file.name}` : "No logo/design file uploaded."}
+
+--------------------
 ADDITIONAL DETAILS
+--------------------
+
 ${notes || "None"}
 
+--------------------
 CONTACT PERSON
+--------------------
+
 Name: ${name}
 Phone: ${phone}
 Email: ${email}
 
-I'd like to discuss this corporate/bulk order with TeeMeme.`;
+I'd like to discuss this corporate/bulk order with TeeMeme.
 
-    const whatsappNumber = "254704547072";
-    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-      message
-    )}`;
+Thank you!`;
 
-    window.open(whatsappUrl, "_blank");
-  };
+  const whatsappNumber = "254704547072";
+
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+    message
+  )}`;
+
+  window.open(whatsappUrl, "_blank");
+
+  setShowWhatsAppNotice(false);
+};
 
   return (
     <main className="corporate-page">
@@ -407,10 +476,41 @@ I'd like to discuss this corporate/bulk order with TeeMeme.`;
 
             <label>UPLOAD YOUR LOGO / DESIGN</label>
 
-            <input
-              type="file"
-              accept="image/*,.pdf"
-            />
+           <input
+  type="file"
+  accept="image/png,image/jpeg,image/webp,image/gif,application/pdf"
+  onChange={(event) => {
+    const selectedFile = event.target.files?.[0];
+
+    if (!selectedFile) {
+      return;
+    }
+
+    const allowedTypes = [
+      "image/jpeg",
+      "image/png",
+      "image/webp",
+      "image/gif",
+      "application/pdf",
+    ];
+
+    if (!allowedTypes.includes(selectedFile.type)) {
+      alert("Please upload a PNG, JPG, WEBP, GIF or PDF file.");
+      event.target.value = "";
+      return;
+    }
+
+    const maxSize = 10 * 1024 * 1024;
+
+    if (selectedFile.size > maxSize) {
+      alert("Please choose a file smaller than 10MB.");
+      event.target.value = "";
+      return;
+    }
+
+    setFile(selectedFile);
+  }}
+/>
 
             <p className="corporate-file-note">
               PNG, JPG or PDF. You can attach the file
@@ -579,6 +679,78 @@ I'd like to discuss this corporate/bulk order with TeeMeme.`;
 
       </section>
 
+     {showWhatsAppNotice && (
+  <div
+    className="corporate-whatsapp-overlay"
+    onClick={() => setShowWhatsAppNotice(false)}
+  >
+    <div
+      className="corporate-whatsapp-modal"
+      onClick={(event) => event.stopPropagation()}
+    >
+      <button
+        type="button"
+        className="corporate-whatsapp-close"
+        onClick={() => setShowWhatsAppNotice(false)}
+      >
+        ×
+      </button>
+
+      <p className="corporate-whatsapp-eyebrow">
+        ONE LAST STEP
+      </p>
+
+      <h2>
+        YOUR QUOTE
+        <br />
+        <span>REQUEST IS READY.</span>
+      </h2>
+
+      <p className="corporate-whatsapp-text">
+        We've got your corporate order details.
+      </p>
+
+      {file && (
+        <div className="corporate-file-reminder">
+          <strong>{file.name}</strong>
+
+          <span>
+            Your logo/design is ready to be attached.
+          </span>
+        </div>
+      )}
+
+      <div className="corporate-whatsapp-instruction">
+        <strong>Before you send:</strong>
+
+        <p>
+          When WhatsApp opens, please attach your
+          {file
+            ? " logo/design file"
+            : " logo or design if you have one"}{" "}
+          to the chat.
+        </p>
+      </div>
+
+      <button
+        type="button"
+        className="corporate-whatsapp-continue"
+        onClick={continueToWhatsApp}
+      >
+        CONTINUE TO WHATSAPP
+        <span>↗</span>
+      </button>
+
+      <button
+        type="button"
+        className="corporate-whatsapp-back"
+        onClick={() => setShowWhatsAppNotice(false)}
+      >
+        GO BACK & EDIT
+      </button>
+    </div>
+  </div>
+)}
     </main>
   );
 }
