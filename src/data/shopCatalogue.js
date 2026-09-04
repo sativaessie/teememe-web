@@ -8,30 +8,29 @@ const shopCatalogue = [
 
     return {
       id: `women-${number}`,
-     name: "Women's Tee",
+      name: "Women's Tee",
       type: "T-Shirt",
       category: "Women",
       price: 1250,
-      image: `/shop/women/women (${number}).jpg`,
+      image: `/shop/women/women (${number}).webp`,
     };
   }),
 
   // =====================================================
-  // KENYAN VIBES — 14 T-SHIRTS
+  // KENYAN VIBES — 15 PRODUCTS
   // =====================================================
 
-  ...Array.from({ length: 14 }, (_, index) => {
-    const number = index + 1;
-
-    return {
-      id: `kenyan-vibes-${number}`,
-      name: "Kenyan Vibes Tee",
-      type: "T-Shirt",
-      category: "Kenyan Vibes",
-      price: 1250,
-      image: `/shop/kenyan-vibes/kenyan-vibes (${number}).jpg`,
-    };
-  }),
+  ...[
+    1, 2, 3, 4, 5, 6, 7,
+    8, 9, 11, 12, 13, 14, 15,
+  ].map((number) => ({
+    id: `kenyan-vibes-${number}`,
+    name: "Kenyan Vibes Tee",
+    type: "T-Shirt",
+    category: "Kenyan Vibes",
+    price: 1250,
+    image: `/shop/kenyan-vibes/kenyan-vibes (${number}).webp`,
+  })),
 
   // KENYAN VIBES COMBO
   {
@@ -40,7 +39,7 @@ const shopCatalogue = [
     type: "Combo",
     category: "Kenyan Vibes",
     price: 1750,
-    image: "/shop/kenyan-vibes/combo-2.jpg",
+    image: "/shop/kenyan-vibes/combo-2.webp",
   },
 
   // =====================================================
@@ -56,7 +55,7 @@ const shopCatalogue = [
       type: "T-Shirt",
       category: "Statement Tees",
       price: 1250,
-      image: `/shop/statement-tees/statement-tees (${number}).jpg`,
+      image: `/shop/statement-tees/statement-tees (${number}).webp`,
     };
   }),
 
@@ -65,20 +64,20 @@ const shopCatalogue = [
   // =====================================================
 
   ...[
-    ["main", "men.jpg"],
-    ["1", "men (1).jpg"],
-    ["2", "men (2).jpg"],
-    ["3", "men (3).png"],
-    ["4", "men (4).jpg"],
-    ["6", "men (6).jpg"],
-    ["7", "men (7).jpg"],
-    ["8", "men (8).jpg"],
-    ["9", "men (9).jpg"],
-    ["10", "men (10).jpg"],
-    ["11", "men (11).jpg"],
-    ["12", "men (12).jpg"],
-    ["13", "men (13).jpg"],
-    ["14", "men(14).jpg"],
+    ["main", "men.webp"],
+    ["1", "men (1).webp"],
+    ["2", "men (2).webp"],
+    ["3", "men (3).webp"],
+    ["4", "men (4).webp"],
+    ["6", "men (6).webp"],
+    ["7", "men (7).webp"],
+    ["8", "men (8).webp"],
+    ["9", "men (9).webp"],
+    ["10", "men (10).webp"],
+    ["11", "men (11).webp"],
+    ["12", "men (12).webp"],
+    ["13", "men (13).webp"],
+    ["14", "men(14).webp"],
   ].map(([number, file]) => ({
     id: `men-tee-${number}`,
     name: "Men's Tee",
@@ -95,7 +94,7 @@ const shopCatalogue = [
     type: "Cap",
     category: "Men",
     price: 600,
-    image: "/shop/men/men-cap.png",
+    image: "/shop/men/men-cap.webp",
   },
 
   {
@@ -104,7 +103,7 @@ const shopCatalogue = [
     type: "Cap",
     category: "Men",
     price: 600,
-    image: "/shop/men/men-cap1.png",
+    image: "/shop/men/men-cap1.webp",
   },
 
   // MEN HOODIES
@@ -114,7 +113,7 @@ const shopCatalogue = [
     type: "Hoodie",
     category: "Men",
     price: 2500,
-    image: "/shop/men/men-hoodie (5).png",
+    image: "/shop/men/men-hoodie (5).webp",
   },
 
   {
@@ -123,7 +122,7 @@ const shopCatalogue = [
     type: "Hoodie",
     category: "Men",
     price: 2500,
-    image: "/shop/men/men-hoodie(15).png",
+    image: "/shop/men/men-hoodie(15).webp",
   },
 
   // =====================================================
@@ -139,7 +138,7 @@ const shopCatalogue = [
     type: "T-Shirt",
     category: "Moments",
     price: 1250,
-    image: `/shop/moments/moments (${number}).jpg`,
+    image: `/shop/moments/moments (${number}).webp`,
   })),
 
   // MOMENTS COMBO
@@ -149,7 +148,7 @@ const shopCatalogue = [
     type: "Combo",
     category: "Moments",
     price: 1750,
-    image: "/shop/moments/combo-3.jpg",
+    image: "/shop/moments/combo-3.webp",
   },
 
   // =====================================================
@@ -161,11 +160,11 @@ const shopCatalogue = [
     10, 11, 12, 13, 14, 15, 16, 17, 18,
   ].map((number) => ({
     id: `funny-${number}`,
-   name: "Funny & Relatable Tee",
+    name: "Funny & Relatable Tee",
     type: "T-Shirt",
     category: "Funny & Relatable",
     price: 1250,
-    image: `/shop/funny-relatable/funny-relatable (${number}).jpg`,
+    image: `/shop/funny-relatable/funny-relatable (${number}).webp`,
   })),
 
   // FUNNY & RELATABLE COMBO
@@ -175,7 +174,7 @@ const shopCatalogue = [
     type: "Combo",
     category: "Funny & Relatable",
     price: 1750,
-    image: "/shop/funny-relatable/combo-1.jpg",
+    image: "/shop/funny-relatable/combo-1.webp",
   },
 
   // =====================================================
@@ -193,7 +192,7 @@ const shopCatalogue = [
     category: "Corporate & Bulk",
     price: null,
     quoteOnly: true,
-    image: `/shop/corporate-bulk/corporate (${number}).jpg`,
+    image: `/shop/corporate-bulk/corporate (${number}).webp`,
   })),
 
   // CORPORATE CAP
@@ -204,17 +203,17 @@ const shopCatalogue = [
     category: "Corporate & Bulk",
     price: null,
     quoteOnly: true,
-    image: "/shop/corporate-bulk/corporate-cap.jpg",
+    image: "/shop/corporate-bulk/corporate-cap.webp",
   },
 
   // CORPORATE HOODIES — 6
   ...[
-    "corporate-hoodie.jpg",
-    "corporate-hoodie(1).jpg",
-    "corporate-hoodie(2).jpg",
-    "corporate-hoodie(3).jpg",
-    "corporate-hoodie(4).jpg",
-    "corporate-hoodie(5).jpg",
+    "corporate-hoodie.webp",
+    "corporate-hoodie(1).webp",
+    "corporate-hoodie(2).webp",
+    "corporate-hoodie(3).webp",
+    "corporate-hoodie(4).webp",
+    "corporate-hoodie(5).webp",
   ].map((file, index) => ({
     id: `corporate-hoodie-${index + 1}`,
     name: `Corporate Hoodie ${index + 1}`,

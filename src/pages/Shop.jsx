@@ -28,8 +28,20 @@ function Shop({ initialCategory = "ALL", onNavigate }) {
     ? shopCatalogue
     : shopCatalogue.filter(
         (product) =>
-          product.category?.toUpperCase() === activeCategory
-      );
+         
+          product.category?.trim().toUpperCase() === activeCategory.trim()
+);
+
+        console.log(
+  "KENYAN VIBES PRODUCTS:",
+  filteredProducts
+    .filter((product) => product.category === "Kenyan Vibes")
+    .map((product) => ({
+      id: product.id,
+      name: product.name,
+      image: product.image,
+    }))
+);
 
   const handleCategoryChange = (category) => {
   setActiveCategory(category.toUpperCase());
@@ -217,7 +229,8 @@ function Shop({ initialCategory = "ALL", onNavigate }) {
 
           <div className="shop-product-grid">
 
-           {filteredProducts.map((product) => (
+           {filteredProducts.map((product) => 
+           (
   <ProductCard
     key={product.id}
     product={product}

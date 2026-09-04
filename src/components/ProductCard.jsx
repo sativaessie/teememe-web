@@ -32,8 +32,9 @@ function ProductCard({ product, onNavigate }) {
   onClick={() => onNavigate("product", product.category, product)}
 >
   <img
-    src={product.image}
-    alt={product.name}
+  src={product.image}
+  alt={product.name}
+  onError={(e)=>{console.log("BROKEN IMAGE:", ProductCard.ID, ProductCard.image);}}
   />
 </button>
 

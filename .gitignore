@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Original shop images - keep locally, use WebP in Git
+public/shop/**/*.jpg
+public/shop/**/*.jpeg
+public/shop/**/*.png

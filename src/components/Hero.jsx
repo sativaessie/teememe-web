@@ -8,7 +8,7 @@ function Hero({ onNavigate }) {
         muted
         loop
         playsInline
-        poster="/hero.jpg"
+        poster="/hero.jpeg"
         preload="metadata"
       >
         <source src="/hero.mp4" type="video/mp4" />
