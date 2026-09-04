@@ -26,26 +26,96 @@
   font-family: inherit;
 }
 
-
 /* =========================================================
-   SHOP HERO
+   SHOP HERO — FULL BLEED CAMPAIGN
 ========================================================= */
 
 .shop-hero {
+  position: relative;
   min-height: 760px;
-  padding: 90px 5vw 80px;
-  display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
+  width: 100%;
+  padding: 100px 5vw 90px;
+  display: flex;
   align-items: center;
-  gap: 70px;
+  overflow: hidden;
+  isolation: isolate;
+  background: #111;
 }
 
+/* =========================================================
+   FULL BACKGROUND — HERO 1
+========================================================= */
+
+.shop-hero-background {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  background: #111;
+}
+
+.shop-hero-background img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.015);
+  transition: transform 1s ease;
+}
+
+.shop-hero:hover .shop-hero-background img {
+  transform: scale(1.035);
+}
+
+/* DARK MOODY OVERLAY */
+
+.shop-hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.78) 0%,
+      rgba(0, 0, 0, 0.58) 35%,
+      rgba(0, 0, 0, 0.32) 68%,
+      rgba(0, 0, 0, 0.48) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.20) 0%,
+      rgba(0, 0, 0, 0.08) 45%,
+      rgba(0, 0, 0, 0.58) 100%
+    );
+}
+
+/* =========================================================
+   HERO CONTENT — TEXT ABOVE EVERYTHING
+========================================================= */
+
 .shop-hero-content {
+  position: relative;
+  z-index: 10;
+  width: 100%;
   max-width: 760px;
+}
+
+.shop-hero-content .shop-eyebrow {
+  margin: 0 0 20px;
+  color: #ff5a00;
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
 }
 
 .shop-hero-content h1 {
   margin: 0 0 30px;
+  color: #f4f0e8;
   font-size: clamp(4.5rem, 7.5vw, 8rem);
   line-height: 0.84;
   letter-spacing: -0.065em;
@@ -60,11 +130,10 @@
 .shop-intro {
   max-width: 610px;
   margin: 0;
-  color: #68645e;
+  color: rgba(244, 240, 232, 0.78);
   font-size: 1.05rem;
   line-height: 1.7;
 }
-
 
 /* =========================================================
    HERO PRODUCT TYPES
@@ -78,7 +147,10 @@
 
 .shop-hero-meta span {
   padding: 11px 17px;
-  border: 1px solid rgba(0, 0, 0, 0.14);
+  border: 1px solid rgba(244, 240, 232, 0.32);
+  color: #f4f0e8;
+  background: rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(4px);
   font-size: 0.68rem;
   font-weight: 900;
   letter-spacing: 0.12em;
@@ -89,7 +161,6 @@
   border-left: none;
 }
 
-
 /* =========================================================
    HERO BUTTON
 ========================================================= */
@@ -98,78 +169,148 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 18px;
   margin-top: 38px;
   padding: 18px 25px;
-  background: #0a0a0a;
-  color: #ffffff;
+
+  border: 1px solid #f4f0e8;
+  background: #f4f0e8;
+  color: #0a0a0a;
+
   text-decoration: none;
   font-size: 0.7rem;
   font-weight: 900;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  transition: all 0.25s ease;
+
+  cursor: pointer;
+
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease;
 }
 
 .shop-hero-button:hover {
   background: #ff5a00;
+  border-color: #ff5a00;
   color: #0a0a0a;
   transform: translateY(-3px);
 }
 
-
 /* =========================================================
-   HERO IMAGE COLLAGE
+   FLOATING CAMPAIGN IMAGES
 ========================================================= */
 
 .shop-hero-images {
-  position: relative;
+  position: absolute;
+  inset: 0;
   width: 100%;
-  height: 610px;
+  height: 100%;
+  z-index: 4;
+  pointer-events: none;
+  overflow: hidden;
 }
 
 .shop-hero-image {
   position: absolute;
   overflow: hidden;
-  background: #ddd;
+
+  border: none;
+  background: transparent;
+  box-shadow: none;
+
+  opacity: 0.72;
+
+  filter:
+    brightness(0.72)
+    contrast(1.08)
+    saturate(0.88);
+
+  pointer-events: none;
+
+  -webkit-mask-image:
+    radial-gradient(
+      ellipse at center,
+      #000 52%,
+      rgba(0, 0, 0, 0.85) 72%,
+      transparent 100%
+    );
+
+  mask-image:
+    radial-gradient(
+      ellipse at center,
+      #000 52%,
+      rgba(0, 0, 0, 0.85) 72%,
+      transparent 100%
+    );
 }
 
 .shop-hero-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  display: block;
+
+  transition:
+    transform 0.8s ease,
+    opacity 0.8s ease;
 }
 
-.shop-hero-image:hover img {
+/* =========================================================
+   FLOATING IMAGE 2 — TOP RIGHT
+========================================================= */
+
+.shop-hero-image-two {
+  width: 28%;
+  height: 48%;
+  top: 4%;
+  right: 4%;
+  z-index: 3;
+}
+
+/* =========================================================
+   FLOATING IMAGE 3 — LOWER RIGHT
+========================================================= */
+
+.shop-hero-image-three {
+  width: 24%;
+  height: 34%;
+  right: 20%;
+  bottom: 4%;
+  z-index: 4;
+  opacity: 0.62;
+}
+
+/* =========================================================
+   FLOATING IMAGE 4 — LOWER LEFT / CENTER
+========================================================= */
+
+.shop-hero-image-four {
+  width: 32%;
+  height: 31%;
+  left: 4%;
+  bottom: 1%;
+  z-index: 3;
+  opacity: 0.55;
+}
+
+/* =========================================================
+   SUBTLE DEPTH
+========================================================= */
+
+.shop-hero-image-two img {
+  transform: scale(1.02);
+}
+
+.shop-hero-image-three img {
   transform: scale(1.04);
 }
 
-.shop-hero-image-main {
-  width: 72%;
-  height: 82%;
-  top: 0;
-  right: 0;
-  z-index: 1;
+.shop-hero-image-four img {
+  transform: scale(1.03);
 }
-
-.shop-hero-image-small {
-  width: 48%;
-  height: 45%;
-  left: 0;
-  bottom: 0;
-  z-index: 2;
-  border: 8px solid #f4f0e8;
-}
-
-.shop-hero-image-tiny {
-  width: 29%;
-  height: 30%;
-  right: 3%;
-  bottom: 2%;
-  z-index: 3;
-  border: 7px solid #f4f0e8;
-}
-
 
 /* =========================================================
    CATEGORY SECTION

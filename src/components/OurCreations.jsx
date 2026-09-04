@@ -66,16 +66,12 @@ function OurCreations() {
 
       </div>
 
-      <div className="creations-bottom">
-        <p>
-          Four looks. One attitude.
-        </p>
+      <div className="creations-bottom"> 
+  <p> 
+    Four looks. One attitude. 
+  </p> 
+</div>
 
-        <a href="#lookbook" className="text-link">
-          VIEW THE FULL LOOKBOOK
-          <span>↗</span>
-        </a>
-      </div>
     </section>
   );
 }

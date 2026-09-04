@@ -38,17 +38,6 @@ function Lookbook() {
 
         </div>
 
-        <div className="text-center mt-10">
-
-          <a
-            href="#"
-            className="inline-block text-sm font-bold text-[#ff6b00] hover:text-white transition"
-          >
-            EXPLORE MORE OF OUR WORK →
-          </a>
-
-        </div>
-
       </div>
 
     </section>

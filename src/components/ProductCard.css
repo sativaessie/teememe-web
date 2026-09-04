@@ -109,6 +109,18 @@
   transform: scale(1.05);
 }
 
+.product-card-wishlist.is-favourite {
+  background: #ff5a00;
+  border-color: #ff5a00;
+  color: #090909;
+}
+
+.product-card-wishlist.is-favourite:hover {
+  background: #090909;
+  border-color: #090909;
+  color: #ff5a00;
+}
+
 
 /* =========================================================
    ADD TO BAG

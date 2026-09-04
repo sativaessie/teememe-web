@@ -61,78 +61,88 @@ function Shop({ initialCategory = "ALL", onNavigate }) {
           SHOP HERO
       ===================================================== */}
 
-      <section className="shop-hero">
+     <section className="shop-hero">
 
-        <div className="shop-hero-content">
+  {/* FULL HERO BACKGROUND */}
+  <div className="shop-hero-background">
+    <img
+      src="/images/shop-hero-new-1.webp"
+      alt="TeeMeme collection"
+    />
+    <div className="shop-hero-overlay"></div>
+  </div>
 
-          <p className="shop-eyebrow">
-            THE TEEMEME COLLECTION
-          </p>
+  {/* HERO CONTENT */}
+  <div className="shop-hero-content">
 
-          <h1>
-            FIND YOUR
-            <br />
-            NEXT <span>STATEMENT.</span>
-          </h1>
+    <p className="shop-eyebrow">
+      THE TEEMEME COLLECTION
+    </p>
 
-          <p className="shop-intro">
-            Not everything you wear needs an explanation.
-            Some pieces just say it for you. Explore
-            statement tees, Kenyan energy, everyday pieces
-            and more.
-          </p>
+    <h1>
+      FIND YOUR
+      <br />
+      NEXT <span>STATEMENT.</span>
+    </h1>
 
-          <div className="shop-hero-meta">
-            <span>TEES</span>
-            <span>HOODIES</span>
-            <span>CAPS</span>
-            <span>CUSTOM</span>
-          </div>
+    <p className="shop-intro">
+      Not everything you wear needs an explanation.
+      Some pieces just say it for you. Explore
+      statement tees, Kenyan energy, everyday pieces
+      and more.
+    </p>
 
-          <button
-            type="button"
-            className="shop-hero-button"
-            onClick={() =>
-              document
-                .getElementById("shop-products")
-                ?.scrollIntoView({
-                  behavior: "smooth",
-                })
-            }
-          >
-            EXPLORE THE COLLECTION
-            <span>↘</span>
-          </button>
+    <div className="shop-hero-meta">
+      <span>TEES</span>
+      <span>HOODIES</span>
+      <span>CAPS</span>
+      <span>CUSTOM</span>
+    </div>
 
-        </div>
+    <button
+      type="button"
+      className="shop-hero-button"
+      onClick={() =>
+        document
+          .getElementById("shop-products")
+          ?.scrollIntoView({
+            behavior: "smooth",
+          })
+      }
+    >
+      EXPLORE THE COLLECTION
+      <span>↘</span>
+    </button>
 
+  </div>
 
-        <div className="shop-hero-images">
+  {/* FLOATING CAMPAIGN IMAGES */}
+  <div className="shop-hero-images">
 
-          <div className="shop-hero-image shop-hero-image-main">
-            <img
-              src="/images/shop-hero-1.jpg"
-              alt="TeeMeme clothing collection"
-            />
-          </div>
+    <div className="shop-hero-image shop-hero-image-two">
+      <img
+        src="/images/shop-hero-new-2.webp"
+        alt="TeeMeme apparel"
+      />
+    </div>
 
-          <div className="shop-hero-image shop-hero-image-small">
-            <img
-              src="/images/shop-hero-2.jpg"
-              alt="TeeMeme apparel"
-            />
-          </div>
+    <div className="shop-hero-image shop-hero-image-three">
+      <img
+        src="/images/shop-hero-new-3.webp"
+        alt="TeeMeme apparel"
+      />
+    </div>
 
-          <div className="shop-hero-image shop-hero-image-tiny">
-            <img
-              src="/images/shop-hero-3.jpg"
-              alt="TeeMeme graphic design"
-            />
-          </div>
+    <div className="shop-hero-image shop-hero-image-four">
+      <img
+        src="/images/shop-hero-new-4.webp"
+        alt="TeeMeme collection"
+      />
+    </div>
 
-        </div>
+  </div>
 
-      </section>
+</section> 
 
 
       {/* =====================================================

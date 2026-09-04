@@ -7,11 +7,10 @@ function Customize() {
   const [showSizeGuide, setShowSizeGuide] = useState(false);
    const [showWhatsAppNotice, setShowWhatsAppNotice] = useState(false);
 
+
   const [garment, setGarment] = useState("T-Shirt");
   const [printType, setPrintType] = useState("Front");
 
-  const [file, setFile] = useState(null);
-  const [previewUrl, setPreviewUrl] = useState("");
 
   const [garmentColor, setGarmentColor] = useState("");
   const [designDescription, setDesignDescription] = useState("");
@@ -30,19 +29,7 @@ function Customize() {
     "18–20 UK": 0,
   });
 
-  // Create and clean up image preview
-  useEffect(() => {
-    if (!file || !file.type.startsWith("image/")) {
-      setPreviewUrl("");
-      return;
-    }
-
-    const url = URL.createObjectURL(file);
-    setPreviewUrl(url);
-
-    return () => URL.revokeObjectURL(url);
-  }, [file]);
-
+  
   const updateSize = (size, value) => {
     const quantity = Number(value);
 
@@ -56,45 +43,6 @@ function Customize() {
     (total, quantity) => total + quantity,
     0
   );
-
-  const handleFileChange = (event) => {
-    const selectedFile = event.target.files?.[0];
-
-    if (!selectedFile) {
-      return;
-    }
-
-    const allowedTypes = [
-      "image/jpeg",
-      "image/png",
-      "image/webp",
-      "image/gif",
-      "application/pdf",
-    ];
-
-    if (!allowedTypes.includes(selectedFile.type)) {
-      alert("Please upload a PNG, JPG, WEBP, GIF or PDF file.");
-      event.target.value = "";
-      return;
-    }
-
-    // Keep file size reasonable for a WhatsApp workflow
-    const maxSize = 10 * 1024 * 1024;
-
-    if (selectedFile.size > maxSize) {
-      alert("Please choose a file smaller than 10MB.");
-      event.target.value = "";
-      return;
-    }
-
-    setFile(selectedFile);
-  };
-
-  const removeFile = () => {
-    setFile(null);
-    setPreviewUrl("");
-  };
-
 
     const handleSubmit = (event) => {
   event.preventDefault();
@@ -114,10 +62,10 @@ function Customize() {
     return;
   }
 
-  if (!file && !designDescription.trim()) {
-    alert("Please upload your design or describe what you would like.");
-    return;
-  }
+ if (!designDescription.trim()) {
+  alert("Please describe what you would like.");
+  return;
+}
 
   if (!customerName.trim()) {
     alert("Please enter your name.");
@@ -169,13 +117,8 @@ TOTAL ITEMS: ${totalQuantity}
 DESIGN
 --------------------
 
-${file ? `Design file: ${file.name}` : "No design file uploaded."}
-
-${
-  designDescription.trim()
-    ? `Design description: ${designDescription.trim()}`
-    : ""
-}
+ Design description:
+${designDescription.trim()}
 
 --------------------
 ADDITIONAL NOTES
@@ -263,76 +206,19 @@ Location: ${location}
             <div className="custom-form-number">02</div>
 
             <div className="custom-form-content">
-              <p className="custom-form-eyebrow">YOUR IDEA</p>
+             
+             <p className="custom-form-eyebrow">YOUR IDEA</p>
 
-              <h2>
-                SHOW US
-                <br />
-                <span>THE VISION.</span>
-              </h2>
+<h2>
+  TELL US
+  <br />
+  <span>THE IDEA.</span>
+</h2>
 
-              <label className="custom-upload">
-                <input
-                  type="file"
-                  accept="image/png,image/jpeg,image/webp,image/gif,application/pdf"
-                  onChange={handleFileChange}
-                />
-
-                <span className="upload-title">
-                  {file ? file.name : "UPLOAD YOUR DESIGN"}
-                </span>
-
-                {file && file.type.startsWith("image/") && previewUrl && (
-                  <div className="custom-preview-wrapper">
-                    <img
-                      src={previewUrl}
-                      alt="Design preview"
-                      className="custom-design-preview"
-                    />
-
-                    <button
-                      type="button"
-                      className="custom-remove-file"
-                      onClick={(event) => {
-                        event.preventDefault();
-                        event.stopPropagation();
-                        removeFile();
-                      }}
-                    >
-                      REMOVE DESIGN
-                    </button>
-                  </div>
-                )}
-
-                {file && file.type === "application/pdf" && (
-                  <div className="custom-pdf-preview">
-                    <span>PDF</span>
-                    <p>DESIGN FILE ATTACHED</p>
-
-                    <button
-                      type="button"
-                      className="custom-remove-file"
-                      onClick={(event) => {
-                        event.preventDefault();
-                        event.stopPropagation();
-                        removeFile();
-                      }}
-                    >
-                      REMOVE FILE
-                    </button>
-                  </div>
-                )}
-
-                <span className="upload-subtitle">
-                  {file
-                    ? "DESIGN READY — CLICK TO REPLACE"
-                    : "PNG, JPG, WEBP or PDF • MAX 10MB"}
-                </span>
-              </label>
-
+              
               <textarea
                 className="custom-textarea"
-                placeholder="Or tell us what you have in mind..."
+placeholder="Tell us what you'd like us to create..."
                 rows="5"
                 value={designDescription}
                 onChange={(event) =>
@@ -369,12 +255,22 @@ Location: ${location}
                     Select a colour
                   </option>
 
-                  <option value="Black">Black</option>
-                  <option value="White">White</option>
-                  <option value="Green">Green</option>
-                  <option value="Orange">Orange</option>
-                  <option value="Grey">Grey</option>
-                  <option value="Other">Other</option>
+                 <option value="Black">Black</option>
+<option value="White">White</option>
+<option value="Green">Green</option>
+<option value="Orange">Orange</option>
+<option value="Grey">Grey</option>
+<option value="Hot Pink">Hot Pink</option>
+<option value="Baby Pink">Baby Pink</option>
+<option value="Maroon">Maroon</option>
+<option value="Yellow">Yellow</option>
+<option value="Mustard">Mustard</option>
+<option value="Sky Blue">Sky Blue</option>
+<option value="Navy">Navy</option>
+<option value="Ash Grey">Ash Grey</option>
+<option value="Charcoal Grey">Charcoal Grey</option>
+<option value="Light Grey">Light Grey</option>
+<option value="Other">Other</option>
                 </select>
               </label>
 
@@ -529,12 +425,10 @@ Location: ${location}
           {/* SUBMIT */}
           <div className="custom-submit-area">
             <p>
-              Your request goes straight to TeeMeme on WhatsApp.
-              <br />
-              {file
-                ? "Your design will also be ready for you to attach."
-                : "We'll discuss your design with you on WhatsApp."}
-            </p>
+  Your request goes straight to TeeMeme on WhatsApp.
+  <br />
+  Please attach your design in WhatsApp when you send your request.
+</p>
 
             <button
               type="submit"
@@ -604,25 +498,14 @@ Location: ${location}
         We've got all your custom order details.
       </p>
 
-      {file && (
-        <div className="whatsapp-file-reminder">
-          <strong>{file.name}</strong>
-          <span>
-            Your design is ready to be attached.
-          </span>
-        </div>
-      )}
 
       <div className="whatsapp-instruction">
         <strong>Before you send:</strong>
 
-        <p>
-          When WhatsApp opens, please attach your
-          {file?.type === "application/pdf"
-            ? " PDF design file"
-            : " design image"}{" "}
-          to the chat.
-        </p>
+       <p>
+  When WhatsApp opens, please attach your design
+  to the chat before sending your request.
+</p>
       </div>
 
       <button

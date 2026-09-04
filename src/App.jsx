@@ -10,7 +10,6 @@ import CustomPrinting from "./components/CustomPrinting";
 import OurCreations from "./components/OurCreations";
 import Corporate from "./components/Corporate";
 import WhyTeeMeme from "./components/WhyTeeMeme";
-import BehindBrand from "./components/BehindBrand";
 import About from "./components/About";
 import Footer from "./components/Footer";
 import Shop from "./pages/Shop";
@@ -51,11 +50,10 @@ const [selectedProduct, setSelectedProduct] = useState(null);
       <OurCreations />
       <Corporate onNavigate={goToPage} />
       <WhyTeeMeme />
-      <BehindBrand />
       <About />
     </main>
 
-    <Footer />
+        <Footer onNavigate={goToPage} />
   </>
 )}
 

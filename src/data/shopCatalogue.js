@@ -187,7 +187,7 @@ const shopCatalogue = [
     11, 12, 13, 14, 15, 17, 18, 19, 20, 23,
   ].map((number) => ({
     id: `corporate-tee-${number}`,
-    name: `Corporate Tee ${number}`,
+    name: "Workwear Tee",
     type: "T-Shirt",
     category: "Corporate & Bulk",
     price: null,
@@ -198,7 +198,7 @@ const shopCatalogue = [
   // CORPORATE CAP
   {
     id: "corporate-cap",
-    name: "Corporate Cap",
+    name: "Workwear Cap",
     type: "Cap",
     category: "Corporate & Bulk",
     price: null,
@@ -216,7 +216,7 @@ const shopCatalogue = [
     "corporate-hoodie(5).webp",
   ].map((file, index) => ({
     id: `corporate-hoodie-${index + 1}`,
-    name: `Corporate Hoodie ${index + 1}`,
+    name: "Workwear Hoodie",
     type: "Hoodie",
     category: "Corporate & Bulk",
     price: null,
