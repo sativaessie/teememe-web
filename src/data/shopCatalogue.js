@@ -1,20 +1,31 @@
 const shopCatalogue = [
   // =====================================================
-  // WOMEN — 24 T-SHIRTS
-  // =====================================================
+// WOMEN — 21 T-SHIRTS
+// =====================================================
 
-  ...Array.from({ length: 24 }, (_, index) => {
-    const number = index + 1;
+...[
+  1, 2, 3, 4, 5, 6, 7, 8, 9,
+  13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
+].map((number) => ({
+  id: `women-tee-${number}`,
+  name: "Women's Tee",
+  type: "T-Shirt",
+  category: "Women",
+  price: 1250,
+  image: `/shop/women/women (${number}).webp`,
+})),
 
-    return {
-      id: `women-${number}`,
-      name: "Women's Tee",
-      type: "T-Shirt",
-      category: "Women",
-      price: 1250,
-      image: `/shop/women/women (${number}).webp`,
-    };
-  }),
+// WOMEN COMBOS
+...[
+  10, 11, 12,
+].map((number) => ({
+  id: `women-combo-${number}`,
+  name: "Women's Combo",
+  type: "Combo",
+  category: "Women",
+  price: 1750,
+  image: `/shop/women/women-combo (${number}).webp`,
+})),
 
   // =====================================================
   // KENYAN VIBES — 15 PRODUCTS

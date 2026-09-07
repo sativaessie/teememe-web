@@ -88,14 +88,14 @@ const [selectedProduct, setSelectedProduct] = useState(null);
 
 {currentPage === "custom" && (
   <>
-    <Customize />
+    <Customize onNavigate={goToPage} />
     <Footer onNavigate={goToPage} />
   </>
 )}
 
 {currentPage === "customize" && (
   <>
-    <Customize />
+  <Customize onNavigate={goToPage} /> 
     <Footer onNavigate={goToPage} />
   </>
 )}

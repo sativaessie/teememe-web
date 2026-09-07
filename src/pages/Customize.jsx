@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./Customize.css";
 
 const WHATSAPP_NUMBER = "254704547072";
-
-function Customize() {
+function Customize({ onNavigate }) {
   const [showSizeGuide, setShowSizeGuide] = useState(false);
-   const [showWhatsAppNotice, setShowWhatsAppNotice] = useState(false);
+  const [showWhatsAppNotice, setShowWhatsAppNotice] = useState(false);
+const [acceptedTerms, setAcceptedTerms] = useState(false);
 
 
   const [garment, setGarment] = useState("T-Shirt");
@@ -82,7 +82,8 @@ function Customize() {
     return;
   }
 
-  setShowWhatsAppNotice(true);
+  setAcceptedTerms(false);
+setShowWhatsAppNotice(true);
 };
 
   const sizeDetails = Object.entries(sizes)
@@ -91,6 +92,11 @@ function Customize() {
   .join("\n");
 
     const continueToWhatsApp = () => {
+        if (!acceptedTerms) {
+    alert("Please agree to TeeMeme's Terms & Conditions before continuing.");
+    return;
+  }
+
   const sizeDetails = Object.entries(sizes)
     .filter(([, quantity]) => quantity > 0)
     .map(([size, quantity]) => `${size}: ${quantity}`)
@@ -497,6 +503,30 @@ placeholder="Tell us what you'd like us to create..."
       <p className="whatsapp-notice-text">
         We've got all your custom order details.
       </p>
+
+      <label className="whatsapp-notice-terms">
+  <input
+    type="checkbox"
+    checked={acceptedTerms}
+    onChange={(event) =>
+      setAcceptedTerms(event.target.checked)
+    }
+  />
+
+  <span>
+    I agree to TeeMeme's{" "}
+    <button
+      type="button"
+      onClick={() => {
+        setShowWhatsAppNotice(false);
+        onNavigate("terms");
+      }}
+    >
+      Terms & Conditions
+    </button>
+    .
+  </span>
+</label>
 
 
       <div className="whatsapp-instruction">
