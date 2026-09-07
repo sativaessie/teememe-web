@@ -25,12 +25,14 @@ function App() {
 const [currentCategory, setCurrentCategory] = useState("ALL");
 const [selectedProduct, setSelectedProduct] = useState(null);
 
+
      const goToPage = (page, category = "ALL", product = null) => {
   setCurrentPage(page);
   setCurrentCategory(category);
   setSelectedProduct(product);
   window.scrollTo(0, 0);
 };
+
 
   return (
     <div className="site">
@@ -79,8 +81,8 @@ const [selectedProduct, setSelectedProduct] = useState(null);
 
 {currentPage === "cart" && (
   <>
-    <Cart />
-  <Footer onNavigate={goToPage} />
+    <Cart onNavigate={goToPage} />
+    <Footer onNavigate={goToPage} />
   </>
 )}
 
@@ -114,7 +116,7 @@ const [selectedProduct, setSelectedProduct] = useState(null);
 
 {currentPage === "terms" && (
   <>
-    <Terms />
+    <Terms onNavigate={goToPage} />
     <Footer onNavigate={goToPage} />
   </>
 )}

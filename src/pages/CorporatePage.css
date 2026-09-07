@@ -1000,3 +1000,146 @@
     font-size: 42px;
   }
 }
+
+/* =========================================================
+   CORPORATE DESIGN / WHATSAPP INSTRUCTION
+========================================================= */
+
+.corporate-design-instruction {
+  margin-top: 4px;
+}
+
+.corporate-design-box {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 8px;
+  padding: 14px 0;
+  border-top: 1px solid rgba(10, 10, 10, 0.16);
+  border-bottom: 1px solid rgba(10, 10, 10, 0.16);
+  background: transparent;
+}
+
+.corporate-design-number {
+  flex: 0 0 auto;
+  color: #ff5a00;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.corporate-design-box strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #0a0a0a;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+}
+
+.corporate-design-box p {
+  margin: 0;
+  color: #666;
+  font-size: 11px;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+@media (max-width: 600px) {
+  .corporate-design-box {
+    gap: 11px;
+    padding: 12px 0;
+  }
+
+  .corporate-design-box strong {
+    font-size: 9px;
+  }
+
+  .corporate-design-box p {
+    font-size: 10px;
+  }
+}
+
+/* =========================================================
+   CORPORATE WHATSAPP TERMS
+========================================================= */
+
+.corporate-whatsapp-terms {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 22px 0 18px;
+  color: #666;
+  font-size: 10px;
+  line-height: 1.6;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+.corporate-whatsapp-terms input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+  margin: 1px 0 0;
+  padding: 0;
+  border: 1px solid #0a0a0a;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+}
+
+.corporate-whatsapp-terms input[type="checkbox"]:checked {
+  background: #ff5a00;
+  border-color: #ff5a00;
+}
+
+.corporate-whatsapp-terms input[type="checkbox"]:checked::after {
+  content: "✓";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0a0a0a;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.corporate-whatsapp-terms span {
+  flex: 1;
+}
+
+.corporate-whatsapp-terms button {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #0a0a0a;
+  font: inherit;
+  font-weight: 900;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.corporate-whatsapp-terms button:hover {
+  color: #ff5a00;
+}
+
+@media (max-width: 600px) {
+  .corporate-whatsapp-terms {
+    gap: 9px;
+    margin: 18px 0 16px;
+    font-size: 9px;
+  }
+
+  .corporate-whatsapp-terms input[type="checkbox"] {
+    flex-basis: 15px;
+    width: 15px;
+    height: 15px;
+  }
+}

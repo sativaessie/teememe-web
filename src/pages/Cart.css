@@ -736,3 +736,70 @@
   }
 
 }
+
+/* =========================================================
+   CHECKOUT TERMS
+========================================================= */
+
+.checkout-terms {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 2px 0 4px;
+  color: #555 !important;
+  font-size: 9px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.4px !important;
+  line-height: 1.6;
+  text-transform: none;
+  cursor: pointer;
+}
+
+.checkout-terms input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  flex: 0 0 17px;
+  width: 17px;
+  height: 17px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #0a0a0a;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+}
+
+.checkout-terms input[type="checkbox"]:checked {
+  background: #ff5a00;
+  border-color: #ff5a00;
+}
+
+.checkout-terms input[type="checkbox"]:checked::after {
+  content: "✓";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0a0a0a;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.checkout-terms button {
+  display: inline;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #0a0a0a;
+  font: inherit;
+  font-weight: 900;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.checkout-terms button:hover {
+  color: #ff5a00;
+}

@@ -9,7 +9,7 @@ import {
 } from "react-icons/fi";
 import { useCart } from "../context/CartContext";
 
-function Cart() {
+function Cart({ onNavigate }) {
   const {
     cartItems,
     removeFromCart,
@@ -18,6 +18,9 @@ function Cart() {
   } = useCart();
 
   const [showCheckout, setShowCheckout] = useState(false);
+const [acceptedTerms, setAcceptedTerms] = useState(false);
+  
+
 
   const [customer, setCustomer] = useState({
     name: "",
@@ -38,6 +41,10 @@ function Cart() {
   const handleWhatsAppCheckout = (event) => {
     event.preventDefault();
 
+if (!acceptedTerms) {
+  alert("Please agree to TeeMeme's Terms & Conditions before placing your order.");
+  return;
+}
     let message = `TEEMEME ORDER 🧡
 
 Hi TeeMeme! I'd like to place an order.
@@ -374,6 +381,30 @@ Thank you!`;
                 </strong>
 
               </div>
+
+              <label className="checkout-terms">
+  <input
+    type="checkbox"
+    checked={acceptedTerms}
+    onChange={(event) =>
+      setAcceptedTerms(event.target.checked)
+    }
+  />
+
+  <span>
+    I agree to TeeMeme's{" "}
+    <button
+      type="button"
+      onClick={() => {
+  onNavigate("terms");
+}}
+     
+    >
+      Terms & Conditions
+    </button>
+    .
+  </span>
+</label>
 
 
               <button

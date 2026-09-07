@@ -1,6 +1,6 @@
 import "./Terms.css";
 
-function Terms() {
+function Terms({ onNavigate }) {
   return (
     <main className="terms-page">
 
@@ -285,6 +285,14 @@ function Terms() {
 
 
         {/* CTA */}
+        <button
+  type="button"
+  className="terms-back-button"
+  onClick={() => onNavigate("cart")}
+>
+  ← BACK TO CART
+</button>
+
         <section className="terms-cta">
 
           <p className="terms-section-label">

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./CorporatePage.css";
 
-function CorporatePage() {
+function CorporatePage({ onNavigate }) {
   const [sizes, setSizes] = useState({
     "6–8 UK": 0,
     "10–12 UK": 0,
@@ -14,7 +14,8 @@ function CorporatePage() {
   const [orderType, setOrderType] = useState("");
   const [colour, setColour] = useState("");
   const [file, setFile] = useState(null);
-  const [showWhatsAppNotice, setShowWhatsAppNotice] = useState(false);
+ const [showWhatsAppNotice, setShowWhatsAppNotice] = useState(false);
+const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [deadline, setDeadline] = useState("");
   const [notes, setNotes] = useState("");
   const [name, setName] = useState("");
@@ -76,10 +77,17 @@ function CorporatePage() {
     return;
   }
 
-  setShowWhatsAppNotice(true);
+  setAcceptedTerms(false);
+setShowWhatsAppNotice(true);
 };
 
 const continueToWhatsApp = () => {
+
+    if (!acceptedTerms) {
+    alert("Please agree to TeeMeme's Terms & Conditions before continuing.");
+    return;
+  }
+
   const sizeBreakdown = Object.entries(sizes)
     .filter(([, quantity]) => quantity > 0)
     .map(([size, quantity]) => `${size}: ${quantity}`)
@@ -111,7 +119,7 @@ ${deadline || "Not specified"}
 LOGO / DESIGN
 --------------------
 
-${file ? `File: ${file.name}` : "No logo/design file uploaded."}
+Customer will attach the logo/design directly in WhatsApp.
 
 --------------------
 ADDITIONAL DETAILS
@@ -459,66 +467,53 @@ Thank you!`;
               </option>
 
               <option>Black</option>
-              <option>White</option>
-              <option>Grey</option>
-              <option>Green</option>
-              <option>Orange</option>
-              <option>Other</option>
+<option>White</option>
+<option>Grey</option>
+<option>Green</option>
+<option>Orange</option>
+<option>Hot Pink</option>
+<option>Baby Pink</option>
+<option>Maroon</option>
+<option>Yellow</option>
+<option>Mustard</option>
+<option>Sky Blue</option>
+<option>Navy</option>
+<option>Ash Grey</option>
+<option>Charcoal Grey</option>
+<option>Light Grey</option>
+<option>Other</option>
 
             </select>
 
           </div>
 
 
-          {/* LOGO */}
+         {/* LOGO / DESIGN */}
 
-          <div className="corporate-form-group">
+<div className="corporate-form-group corporate-design-instruction">
 
-            <label>UPLOAD YOUR LOGO / DESIGN</label>
+  <label>LOGO / DESIGN</label>
 
-           <input
-  type="file"
-  accept="image/png,image/jpeg,image/webp,image/gif,application/pdf"
-  onChange={(event) => {
-    const selectedFile = event.target.files?.[0];
+  <div className="corporate-design-box">
 
-    if (!selectedFile) {
-      return;
-    }
+    <span className="corporate-design-number">
+      01
+    </span>
 
-    const allowedTypes = [
-      "image/jpeg",
-      "image/png",
-      "image/webp",
-      "image/gif",
-      "application/pdf",
-    ];
+    <div>
+      <strong>ATTACH IT IN WHATSAPP</strong>
 
-    if (!allowedTypes.includes(selectedFile.type)) {
-      alert("Please upload a PNG, JPG, WEBP, GIF or PDF file.");
-      event.target.value = "";
-      return;
-    }
+      <p>
+        Please attach your logo or design directly
+        in WhatsApp when you send your request.
+      </p>
+    </div>
 
-    const maxSize = 10 * 1024 * 1024;
+  </div>
 
-    if (selectedFile.size > maxSize) {
-      alert("Please choose a file smaller than 10MB.");
-      event.target.value = "";
-      return;
-    }
+</div>
 
-    setFile(selectedFile);
-  }}
-/>
-
-            <p className="corporate-file-note">
-              PNG, JPG or PDF. You can attach the file
-              directly in WhatsApp after sending your request.
-            </p>
-
-          </div>
-
+          
 
           {/* SIZE BREAKDOWN */}
 
@@ -709,27 +704,39 @@ Thank you!`;
       <p className="corporate-whatsapp-text">
         We've got your corporate order details.
       </p>
+ <label className="corporate-whatsapp-terms">
+  <input
+    type="checkbox"
+    checked={acceptedTerms}
+    onChange={(event) =>
+      setAcceptedTerms(event.target.checked)
+    }
+  />
 
-      {file && (
-        <div className="corporate-file-reminder">
-          <strong>{file.name}</strong>
-
-          <span>
-            Your logo/design is ready to be attached.
-          </span>
-        </div>
-      )}
+  <span>
+    I agree to TeeMeme's{" "}
+    <button
+      type="button"
+      onClick={() => {
+  setShowWhatsAppNotice(false);
+  window.scrollTo(0, 0);
+}}
+    >
+      Terms & Conditions
+    </button>
+    .
+  </span>
+</label>
+       
 
       <div className="corporate-whatsapp-instruction">
         <strong>Before you send:</strong>
 
         <p>
-          When WhatsApp opens, please attach your
-          {file
-            ? " logo/design file"
-            : " logo or design if you have one"}{" "}
-          to the chat.
-        </p>
+  When WhatsApp opens, please attach your
+  logo or design directly to the chat before
+  sending your request.
+</p>
       </div>
 
       <button
