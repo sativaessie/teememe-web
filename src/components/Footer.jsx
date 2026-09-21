@@ -128,14 +128,14 @@ function Footer({ onNavigate }) {
           <span>VISIT US</span>
 
           <p>
-            Bihi Towers, Floor & Suite 3
-            <br />
-            Moi Avenue, Nairobi Central Business District
-          </p>
+  AJS House, 3rd Floor, Suite 303
+  <br />
+  Keekrok Street, Nairobi
+</p>
         </div>
 
         <a
-          href="https://www.google.com/maps/search/?api=1&query=Bihi+Towers+Moi+Avenue+Nairobi"
+      href="https://www.google.com/maps/search/?api=1&query=AJS+House+Keekrok+Street+Nairobi"
           target="_blank"
           rel="noreferrer"
           className="footer-map-link"
