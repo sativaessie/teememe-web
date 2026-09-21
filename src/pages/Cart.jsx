@@ -6,6 +6,9 @@ import {
   FiTrash2,
   FiArrowLeft,
   FiX,
+  FiCopy,
+  FiCheck,
+  FiArrowUpRight,
 } from "react-icons/fi";
 import { useCart } from "../context/CartContext";
 
@@ -18,9 +21,10 @@ function Cart({ onNavigate }) {
   } = useCart();
 
   const [showCheckout, setShowCheckout] = useState(false);
-const [acceptedTerms, setAcceptedTerms] = useState(false);
-  
-
+  const [checkoutStep, setCheckoutStep] = useState(1);
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const [copiedField, setCopiedField] = useState("");
+  const [paymentCode, setPaymentCode] = useState("");
 
   const [customer, setCustomer] = useState({
     name: "",
@@ -28,6 +32,9 @@ const [acceptedTerms, setAcceptedTerms] = useState(false);
     location: "",
     note: "",
   });
+
+  const PAYBILL = "880100";
+  const ACCOUNT_NUMBER = "547072";
 
   const handleCustomerChange = (event) => {
     const { name, value } = event.target;
@@ -38,13 +45,45 @@ const [acceptedTerms, setAcceptedTerms] = useState(false);
     }));
   };
 
-  const handleWhatsAppCheckout = (event) => {
+  const copyToClipboard = async (value, field) => {
+    try {
+      await navigator.clipboard.writeText(value);
+
+      setCopiedField(field);
+
+      setTimeout(() => {
+        setCopiedField("");
+      }, 1800);
+    } catch (error) {
+      console.error("Could not copy:", error);
+    }
+  };
+
+  const handleContinueToPayment = (event) => {
     event.preventDefault();
 
-if (!acceptedTerms) {
-  alert("Please agree to TeeMeme's Terms & Conditions before placing your order.");
-  return;
-}
+    if (!acceptedTerms) {
+      alert(
+        "Please agree to TeeMeme's Terms & Conditions before continuing."
+      );
+      return;
+    }
+
+    setCheckoutStep(2);
+  };
+
+  const handlePaymentConfirmation = (event) => {
+    event.preventDefault();
+
+    if (!paymentCode.trim()) {
+      alert("Please enter your M-PESA confirmation code.");
+      return;
+    }
+
+    setCheckoutStep(3);
+  };
+
+  const handleWhatsAppCheckout = () => {
     let message = `TEEMEME ORDER 🧡
 
 Hi TeeMeme! I'd like to place an order.
@@ -53,11 +92,76 @@ ORDER DETAILS
 `;
 
     cartItems.forEach((item) => {
-      const itemTotal = item.price * item.quantity;
+  const itemTotal = item.price * item.quantity;
 
-      message += `• ${item.name} × ${item.quantity} — KSh ${itemTotal.toLocaleString()}\n`;
-    });
+  let productReference = item.id;
 
+  if (item.id.startsWith("women-tee-")) {
+    productReference = `WM-${item.id
+      .replace("women-tee-", "")
+      .padStart(2, "0")}`;
+  } else if (item.id.startsWith("women-combo-")) {
+    productReference = `WM-C${item.id.replace(
+      "women-combo-",
+      ""
+    )}`;
+  } else if (item.id.startsWith("kenyan-vibes-")) {
+    const number = item.id.replace("kenyan-vibes-", "");
+
+    productReference =
+      number === "combo"
+        ? "KV-C1"
+        : `KV-${number.padStart(2, "0")}`;
+  } else if (item.id.startsWith("statement-tee-")) {
+    productReference = `ST-${item.id
+      .replace("statement-tee-", "")
+      .padStart(2, "0")}`;
+  } else if (item.id.startsWith("men-tee-")) {
+    productReference = `MN-${item.id
+      .replace("men-tee-", "")
+      .padStart(2, "0")}`;
+  } else if (item.id === "men-cap-1") {
+    productReference = "MN-C1";
+  } else if (item.id === "men-cap-2") {
+    productReference = "MN-C2";
+  } else if (item.id === "men-hoodie-1") {
+    productReference = "MN-H1";
+  } else if (item.id === "men-hoodie-2") {
+    productReference = "MN-H2";
+  } else if (item.id.startsWith("moments-")) {
+    const number = item.id.replace("moments-", "");
+
+    productReference =
+      number === "combo"
+        ? "MO-C1"
+        : `MO-${number.padStart(2, "0")}`;
+  } else if (item.id.startsWith("funny-")) {
+    const number = item.id.replace("funny-", "");
+
+    productReference =
+      number === "combo"
+        ? "FR-C1"
+        : `FR-${number.padStart(2, "0")}`;
+  } else if (item.id.startsWith("corporate-tee-")) {
+    productReference = `CB-${item.id
+      .replace("corporate-tee-", "")
+      .padStart(2, "0")}`;
+  } else if (item.id === "corporate-cap") {
+    productReference = "CB-C1";
+  } else if (item.id.startsWith("corporate-hoodie-")) {
+    productReference = `CB-H${item.id.replace(
+      "corporate-hoodie-",
+      ""
+    )}`;
+  }
+
+  message += `• ${item.name}
+  REF: ${productReference}
+  Quantity: ${item.quantity}
+  Price: KSh ${itemTotal.toLocaleString()}
+
+`;
+});
     message += `
 TOTAL: KSh ${cartTotal.toLocaleString()}
 
@@ -76,7 +180,10 @@ ${customer.note}
 
     message += `
 PAYMENT
-I'd like to proceed with payment. Please send me the payment instructions.
+Method: M-PESA
+PayBill: ${PAYBILL}
+Account Number: ${ACCOUNT_NUMBER}
+Confirmation Code: ${paymentCode}
 
 Thank you!`;
 
@@ -87,6 +194,13 @@ Thank you!`;
     )}`;
 
     window.open(whatsappUrl, "_blank");
+  };
+
+  const closeCheckout = () => {
+    setShowCheckout(false);
+    setCheckoutStep(1);
+    setPaymentCode("");
+    setCopiedField("");
   };
 
   if (cartItems.length === 0) {
@@ -135,7 +249,6 @@ Thank you!`;
             {cartItems.length === 1 ? "ITEM" : "ITEMS"}
           </p>
         </div>
-
 
         {/* CART */}
 
@@ -221,7 +334,6 @@ Thank you!`;
 
           </div>
 
-
           {/* SUMMARY */}
 
           <aside className="cart-summary">
@@ -249,13 +361,18 @@ Thank you!`;
                 KSh {cartTotal.toLocaleString()}
               </strong>
             </div>
-                <button
-  type="button"
-  className="checkout-button"
-  onClick={() => setShowCheckout(true)}
->
-  PROCEED TO CHECKOUT
-</button>
+
+            <button
+              type="button"
+              className="checkout-button"
+              onClick={() => {
+                setCheckoutStep(1);
+                setShowCheckout(true);
+              }}
+            >
+              PROCEED TO CHECKOUT
+            </button>
+
             <a
               href="/shop"
               className="continue-shopping"
@@ -270,13 +387,12 @@ Thank you!`;
 
       </section>
 
-
       {/* CHECKOUT MODAL */}
 
       {showCheckout && (
         <div
           className="checkout-overlay"
-          onClick={() => setShowCheckout(false)}
+          onClick={closeCheckout}
         >
 
           <div
@@ -289,138 +405,678 @@ Thank you!`;
             <button
               type="button"
               className="checkout-close"
-              onClick={() =>
-                setShowCheckout(false)
-              }
+              onClick={closeCheckout}
               aria-label="Close checkout"
             >
               <FiX />
             </button>
 
+            {/* STEP INDICATOR */}
 
-            <p className="checkout-eyebrow">
-              ALMOST THERE
-            </p>
-
-            <h2>
-              WHERE SHOULD
-              <br />
-              <span>WE SEND IT?</span>
-            </h2>
-
-
-            <form
-              className="checkout-form"
-              onSubmit={handleWhatsAppCheckout}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                marginBottom: "28px",
+              }}
             >
-
-              <label>
-                FULL NAME
-
-                <input
-                  type="text"
-                  name="name"
-                  value={customer.name}
-                  onChange={handleCustomerChange}
-                  placeholder="Your name"
-                  required
+              {[1, 2, 3].map((step) => (
+                <div
+                  key={step}
+                  style={{
+                    height: "3px",
+                    flex: 1,
+                    background:
+                      checkoutStep >= step
+                        ? "#ff5a00"
+                        : "rgba(10,10,10,0.12)",
+                    transition: "background 0.25s ease",
+                  }}
                 />
-              </label>
+              ))}
+            </div>
 
+            {/* STEP 1 — CUSTOMER DETAILS */}
 
-              <label>
-                PHONE NUMBER
+            {checkoutStep === 1 && (
+              <>
+                <p className="checkout-eyebrow">
+                  STEP 01 / YOUR DETAILS
+                </p>
 
-                <input
-                  type="tel"
-                  name="phone"
-                  value={customer.phone}
-                  onChange={handleCustomerChange}
-                  placeholder="07XX XXX XXX"
-                  required
-                />
-              </label>
+                <h2>
+                  WHERE SHOULD
+                  <br />
+                  <span>WE SEND IT?</span>
+                </h2>
 
+                <form
+                  className="checkout-form"
+                  onSubmit={handleContinueToPayment}
+                >
 
-              <label>
-                DELIVERY LOCATION
+                  <label>
+                    FULL NAME
 
-                <input
-                  type="text"
-                  name="location"
-                  value={customer.location}
-                  onChange={handleCustomerChange}
-                  placeholder="e.g. Nairobi, Westlands"
-                  required
-                />
-              </label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={customer.name}
+                      onChange={handleCustomerChange}
+                      placeholder="Your name"
+                      required
+                    />
+                  </label>
 
+                  <label>
+                    PHONE NUMBER
 
-              <label>
-                ORDER NOTE
-                <span className="optional">
-                  OPTIONAL
-                </span>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={customer.phone}
+                      onChange={handleCustomerChange}
+                      placeholder="07XX XXX XXX"
+                      required
+                    />
+                  </label>
 
-                <textarea
-                  name="note"
-                  value={customer.note}
-                  onChange={handleCustomerChange}
-                  placeholder="Anything we should know?"
-                  rows="4"
-                />
-              </label>
+                  <label>
+                    DELIVERY LOCATION
 
+                    <input
+                      type="text"
+                      name="location"
+                      value={customer.location}
+                      onChange={handleCustomerChange}
+                      placeholder="e.g. Nairobi, Westlands"
+                      required
+                    />
+                  </label>
 
-              <div className="checkout-total">
+                  <label>
+                    ORDER NOTE
+                    <span className="optional">
+                      OPTIONAL
+                    </span>
 
-                <span>ORDER TOTAL</span>
+                    <textarea
+                      name="note"
+                      value={customer.note}
+                      onChange={handleCustomerChange}
+                      placeholder="Anything we should know?"
+                      rows="4"
+                    />
+                  </label>
 
-                <strong>
-                  KSh {cartTotal.toLocaleString()}
-                </strong>
+                  <div className="checkout-total">
+                    <span>ORDER TOTAL</span>
 
-              </div>
+                    <strong>
+                      KSh {cartTotal.toLocaleString()}
+                    </strong>
+                  </div>
 
-              <label className="checkout-terms">
-  <input
-    type="checkbox"
-    checked={acceptedTerms}
-    onChange={(event) =>
-      setAcceptedTerms(event.target.checked)
-    }
-  />
+                  <label className="checkout-terms">
 
-  <span>
-    I agree to TeeMeme's{" "}
-    <button
-      type="button"
-      onClick={() => {
-  onNavigate("terms");
-}}
-     
-    >
-      Terms & Conditions
-    </button>
-    .
-  </span>
-</label>
+                    <input
+                      type="checkbox"
+                      checked={acceptedTerms}
+                      onChange={(event) =>
+                        setAcceptedTerms(
+                          event.target.checked
+                        )
+                      }
+                    />
 
+                    <span>
+                      I agree to TeeMeme's{" "}
+                      <button
+                        type="button"
+                        onClick={() => onNavigate("terms")}
+                      >
+                        Terms & Conditions
+                      </button>
+                      .
+                    </span>
 
-              <button
-                type="submit"
-                className="whatsapp-checkout-button"
-              >
-                PAY & ORDER VIA WHATSAPP
-                <span>↗</span>
-              </button>
+                  </label>
 
-              <p className="checkout-note">
-                You'll be taken to WhatsApp with
-                your order details already prepared.
-              </p>
+                  <button
+                    type="submit"
+                    className="whatsapp-checkout-button"
+                  >
+                    CONTINUE TO PAYMENT
+                    <span>
+                      <FiArrowUpRight />
+                    </span>
+                  </button>
 
-            </form>
+                  <p className="checkout-note">
+                    You'll review your M-PESA payment
+                    details on the next step.
+                  </p>
+
+                </form>
+              </>
+            )}
+
+            {/* STEP 2 — M-PESA */}
+
+            {checkoutStep === 2 && (
+              <>
+                <p className="checkout-eyebrow">
+                  STEP 02 / PAYMENT
+                </p>
+
+                <h2>
+                  PAY WITH
+                  <br />
+                  <span>M-PESA.</span>
+                </h2>
+
+                <div
+                  style={{
+                    padding: "22px",
+                    background: "#0a0a0a",
+                    color: "#ffffff",
+                    marginBottom: "24px",
+                  }}
+                >
+                  <p
+                    style={{
+                      margin: "0 0 8px",
+                      color: "#ff5a00",
+                      fontSize: "9px",
+                      fontWeight: 900,
+                      letterSpacing: "1.5px",
+                    }}
+                  >
+                    AMOUNT TO PAY
+                  </p>
+
+                  <strong
+                    style={{
+                      display: "block",
+                      fontSize: "34px",
+                      lineHeight: 1,
+                      fontWeight: 900,
+                    }}
+                  >
+                    KSh {cartTotal.toLocaleString()}
+                  </strong>
+                </div>
+
+                {/* PAYMENT DETAILS */}
+
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "1fr 1fr",
+                    gap: "10px",
+                    marginBottom: "25px",
+                  }}
+                >
+
+                  <div
+                    style={{
+                      border: "1px solid rgba(10,10,10,0.15)",
+                      padding: "18px",
+                      background: "rgba(255,255,255,0.5)",
+                    }}
+                  >
+                    <p
+                      style={{
+                        margin: "0 0 7px",
+                        color: "#777",
+                        fontSize: "8px",
+                        fontWeight: 900,
+                        letterSpacing: "1px",
+                      }}
+                    >
+                      PAYBILL
+                    </p>
+
+                    <strong
+                      style={{
+                        fontSize: "21px",
+                        fontWeight: 900,
+                      }}
+                    >
+                      {PAYBILL}
+                    </strong>
+
+                    <button
+                      type="button"
+                      onClick={() =>
+                        copyToClipboard(
+                          PAYBILL,
+                          "paybill"
+                        )
+                      }
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "6px",
+                        marginTop: "10px",
+                        padding: 0,
+                        border: 0,
+                        background: "none",
+                        color: "#ff5a00",
+                        fontSize: "8px",
+                        fontWeight: 900,
+                        letterSpacing: "1px",
+                        cursor: "pointer",
+                      }}
+                    >
+                      {copiedField === "paybill" ? (
+                        <>
+                          <FiCheck />
+                          COPIED
+                        </>
+                      ) : (
+                        <>
+                          <FiCopy />
+                          COPY
+                        </>
+                      )}
+                    </button>
+                  </div>
+
+                  <div
+                    style={{
+                      border: "1px solid rgba(10,10,10,0.15)",
+                      padding: "18px",
+                      background: "rgba(255,255,255,0.5)",
+                    }}
+                  >
+                    <p
+                      style={{
+                        margin: "0 0 7px",
+                        color: "#777",
+                        fontSize: "8px",
+                        fontWeight: 900,
+                        letterSpacing: "1px",
+                      }}
+                    >
+                      ACCOUNT
+                    </p>
+
+                    <strong
+                      style={{
+                        fontSize: "21px",
+                        fontWeight: 900,
+                      }}
+                    >
+                      {ACCOUNT_NUMBER}
+                    </strong>
+
+                    <button
+                      type="button"
+                      onClick={() =>
+                        copyToClipboard(
+                          ACCOUNT_NUMBER,
+                          "account"
+                        )
+                      }
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "6px",
+                        marginTop: "10px",
+                        padding: 0,
+                        border: 0,
+                        background: "none",
+                        color: "#ff5a00",
+                        fontSize: "8px",
+                        fontWeight: 900,
+                        letterSpacing: "1px",
+                        cursor: "pointer",
+                      }}
+                    >
+                      {copiedField === "account" ? (
+                        <>
+                          <FiCheck />
+                          COPIED
+                        </>
+                      ) : (
+                        <>
+                          <FiCopy />
+                          COPY
+                        </>
+                      )}
+                    </button>
+                  </div>
+
+                </div>
+
+                {/* INSTRUCTIONS */}
+
+                <div
+                  style={{
+                    borderTop:
+                      "1px solid rgba(10,10,10,0.15)",
+                    borderBottom:
+                      "1px solid rgba(10,10,10,0.15)",
+                    padding: "20px 0",
+                    marginBottom: "22px",
+                  }}
+                >
+
+                  <p
+                    style={{
+                      margin: "0 0 15px",
+                      fontSize: "9px",
+                      fontWeight: 900,
+                      letterSpacing: "1.3px",
+                    }}
+                  >
+                    HOW TO PAY
+                  </p>
+
+                  <div
+                    style={{
+                      display: "grid",
+                      gap: "12px",
+                    }}
+                  >
+
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "13px",
+                        alignItems: "flex-start",
+                      }}
+                    >
+                      <strong
+                        style={{
+                          color: "#ff5a00",
+                          fontSize: "10px",
+                        }}
+                      >
+                        01
+                      </strong>
+
+                      <span
+                        style={{
+                          color: "#555",
+                          fontSize: "10px",
+                          lineHeight: 1.5,
+                        }}
+                      >
+                        Open M-PESA and select
+                        <strong> Lipa na M-PESA → PayBill</strong>.
+                      </span>
+                    </div>
+
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "13px",
+                        alignItems: "flex-start",
+                      }}
+                    >
+                      <strong
+                        style={{
+                          color: "#ff5a00",
+                          fontSize: "10px",
+                        }}
+                      >
+                        02
+                      </strong>
+
+                      <span
+                        style={{
+                          color: "#555",
+                          fontSize: "10px",
+                          lineHeight: 1.5,
+                        }}
+                      >
+                        Enter PayBill{" "}
+                        <strong>{PAYBILL}</strong> and
+                        Account{" "}
+                        <strong>{ACCOUNT_NUMBER}</strong>.
+                      </span>
+                    </div>
+
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "13px",
+                        alignItems: "flex-start",
+                      }}
+                    >
+                      <strong
+                        style={{
+                          color: "#ff5a00",
+                          fontSize: "10px",
+                        }}
+                      >
+                        03
+                      </strong>
+
+                      <span
+                        style={{
+                          color: "#555",
+                          fontSize: "10px",
+                          lineHeight: 1.5,
+                        }}
+                      >
+                        Enter{" "}
+                        <strong>
+                          KSh {cartTotal.toLocaleString()}
+                        </strong>{" "}
+                        and complete the payment.
+                      </span>
+                    </div>
+
+                  </div>
+
+                </div>
+
+                {/* CONFIRMATION CODE */}
+
+                <form
+                  className="checkout-form"
+                  onSubmit={handlePaymentConfirmation}
+                >
+
+                  <label>
+                    M-PESA CONFIRMATION CODE
+
+                    <input
+                      type="text"
+                      value={paymentCode}
+                      onChange={(event) =>
+                        setPaymentCode(
+                          event.target.value.toUpperCase()
+                        )
+                      }
+                      placeholder="e.g. QGH7X2ABC1"
+                      required
+                    />
+                  </label>
+
+                  <button
+                    type="submit"
+                    className="whatsapp-checkout-button"
+                  >
+                    CONFIRM PAYMENT
+                    <span>
+                      <FiCheck />
+                    </span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setCheckoutStep(1)}
+                    style={{
+                      border: 0,
+                      background: "transparent",
+                      color: "#777",
+                      fontFamily: "inherit",
+                      fontSize: "8px",
+                      fontWeight: 900,
+                      letterSpacing: "1px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    ← BACK TO DETAILS
+                  </button>
+
+                </form>
+              </>
+            )}
+
+            {/* STEP 3 — ORDER READY */}
+
+            {checkoutStep === 3 && (
+              <>
+                <p className="checkout-eyebrow">
+                  STEP 03 / ORDER READY
+                </p>
+
+                <h2>
+                  YOU'RE
+                  <br />
+                  <span>ALL SET.</span>
+                </h2>
+
+                <div
+                  style={{
+                    background: "#0a0a0a",
+                    color: "#ffffff",
+                    padding: "24px",
+                    marginBottom: "24px",
+                  }}
+                >
+
+                  <p
+                    style={{
+                      margin: "0 0 18px",
+                      color: "#ff5a00",
+                      fontSize: "9px",
+                      fontWeight: 900,
+                      letterSpacing: "1.5px",
+                    }}
+                  >
+                    PAYMENT RECEIVED
+                  </p>
+
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      gap: "20px",
+                      paddingBottom: "14px",
+                      borderBottom:
+                        "1px solid rgba(255,255,255,0.15)",
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontSize: "9px",
+                        color: "#aaa",
+                      }}
+                    >
+                      M-PESA CODE
+                    </span>
+
+                    <strong
+                      style={{
+                        fontSize: "11px",
+                      }}
+                    >
+                      {paymentCode}
+                    </strong>
+                  </div>
+
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      gap: "20px",
+                      paddingTop: "16px",
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontSize: "9px",
+                        color: "#aaa",
+                      }}
+                    >
+                      TOTAL
+                    </span>
+
+                    <strong
+                      style={{
+                        color: "#ff5a00",
+                        fontSize: "18px",
+                      }}
+                    >
+                      KSh {cartTotal.toLocaleString()}
+                    </strong>
+                  </div>
+
+                </div>
+
+                <div
+                  style={{
+                    marginBottom: "24px",
+                  }}
+                >
+                  <p
+                    style={{
+                      margin: "0 0 12px",
+                      fontSize: "9px",
+                      fontWeight: 900,
+                      letterSpacing: "1.2px",
+                    }}
+                  >
+                    ORDER FOR
+                  </p>
+
+                  <p
+                    style={{
+                      margin: "0 0 5px",
+                      fontSize: "14px",
+                      fontWeight: 900,
+                    }}
+                  >
+                    {customer.name}
+                  </p>
+
+                  <p
+                    style={{
+                      margin: 0,
+                      color: "#777",
+                      fontSize: "10px",
+                      lineHeight: 1.6,
+                    }}
+                  >
+                    {customer.phone}
+                    <br />
+                    {customer.location}
+                  </p>
+                </div>
+
+                <button
+                  type="button"
+                  className="whatsapp-checkout-button"
+                  onClick={handleWhatsAppCheckout}
+                >
+                  SEND ORDER VIA WHATSAPP
+                  <span>↗</span>
+                </button>
+
+                <p className="checkout-note">
+                  Your order details and M-PESA confirmation
+                  code will be prepared automatically.
+                </p>
+
+              </>
+            )}
 
           </div>
 

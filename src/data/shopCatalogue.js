@@ -5,7 +5,7 @@ const shopCatalogue = [
 
 ...[
   1, 2, 3, 4, 5, 6, 7, 8, 9,
-  13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
+  13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25,
 ].map((number) => ({
   id: `women-tee-${number}`,
   name: "Women's Tee",
@@ -89,6 +89,7 @@ const shopCatalogue = [
     ["12", "men (12).webp"],
     ["13", "men (13).webp"],
     ["14", "men(14).webp"],
+    ["15", "men(15).webp"],
   ].map(([number, file]) => ({
     id: `men-tee-${number}`,
     name: "Men's Tee",

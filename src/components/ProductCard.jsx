@@ -46,6 +46,85 @@ function ProductCard({ product, onNavigate }) {
     }
   };
 
+  // AUTOMATIC PRODUCT REFERENCE
+  const getProductReference = () => {
+    const id = product.id || "";
+
+    if (id.startsWith("women-tee-")) {
+      return `WM-${id.replace("women-tee-", "").padStart(2, "0")}`;
+    }
+
+    if (id.startsWith("women-combo-")) {
+      return `WM-C${id.replace("women-combo-", "")}`;
+    }
+
+    if (id.startsWith("kenyan-vibes-")) {
+      const number = id.replace("kenyan-vibes-", "");
+
+      if (number === "combo") {
+        return "KV-C1";
+      }
+
+      return `KV-${number.padStart(2, "0")}`;
+    }
+
+    if (id.startsWith("statement-tee-")) {
+      return `ST-${id
+        .replace("statement-tee-", "")
+        .padStart(2, "0")}`;
+    }
+
+    if (id.startsWith("men-tee-")) {
+      return `MN-${id
+        .replace("men-tee-", "")
+        .padStart(2, "0")}`;
+    }
+
+    if (id === "men-cap-1") return "MN-C1";
+    if (id === "men-cap-2") return "MN-C2";
+
+    if (id === "men-hoodie-1") return "MN-H1";
+    if (id === "men-hoodie-2") return "MN-H2";
+
+    if (id.startsWith("moments-")) {
+      const number = id.replace("moments-", "");
+
+      if (number === "combo") {
+        return "MO-C1";
+      }
+
+      return `MO-${number.padStart(2, "0")}`;
+    }
+
+    if (id.startsWith("funny-")) {
+      const number = id.replace("funny-", "");
+
+      if (number === "combo") {
+        return "FR-C1";
+      }
+
+      return `FR-${number.padStart(2, "0")}`;
+    }
+
+    if (id.startsWith("corporate-tee-")) {
+      return `CB-${id
+        .replace("corporate-tee-", "")
+        .padStart(2, "0")}`;
+    }
+
+    if (id === "corporate-cap") {
+      return "CB-C1";
+    }
+
+    if (id.startsWith("corporate-hoodie-")) {
+      return `CB-H${id.replace("corporate-hoodie-", "")}`;
+    }
+
+    return null;
+  };
+
+  const productReference = getProductReference();
+
   return (
     <article className="product-card">
 
@@ -123,21 +202,28 @@ function ProductCard({ product, onNavigate }) {
             {product.name}
           </h3>
 
+          {productReference && (
+            <span className="product-card-reference">
+             {productReference}
+            </span>
+          )}
+
         </div>
 
         {product.quoteOnly ? (
-  <button
-    type="button"
-    className="product-card-price product-card-quote"
-    onClick={() => onNavigate("corporate")}
-  >
-    REQUEST A QUOTE
-  </button>
-) : (
-  <p className="product-card-price">
-    KSh {product.price.toLocaleString()}
-  </p>
-)}
+          <button
+            type="button"
+            className="product-card-price product-card-quote"
+            onClick={() => onNavigate("corporate")}
+          >
+            REQUEST A QUOTE
+          </button>
+        ) : (
+          <p className="product-card-price">
+            KSh {product.price.toLocaleString()}
+          </p>
+        )}
+
       </div>
 
     </article>

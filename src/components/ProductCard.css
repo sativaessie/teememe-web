@@ -225,6 +225,20 @@
   overflow-wrap: anywhere;
 }
 
+.product-card-reference {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 7px;
+  padding: 4px 8px;
+  border: 1px solid rgba(10, 10, 10, 0.15);
+  border-radius: 999px;
+  color: #817c74;
+  background: rgba(10, 10, 10, 0.03);
+  font-size: 0.52rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  line-height: 1;
+}
 
 /* =========================================================
    PRICE
