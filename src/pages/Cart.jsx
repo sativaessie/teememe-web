@@ -961,7 +961,7 @@ Thank you!`;
                       letterSpacing: "1.5px",
                     }}
                   >
-                    PAYMENT RECEIVED
+                PAYMENT DETAILS SAVED
                   </p>
 
                   <div
@@ -1060,6 +1060,38 @@ Thank you!`;
                     {customer.location}
                   </p>
                 </div>
+
+                <div
+  style={{
+    padding: "18px 0",
+    marginBottom: "24px",
+    borderTop: "1px solid rgba(10,10,10,0.12)",
+    borderBottom: "1px solid rgba(10,10,10,0.12)",
+  }}
+>
+  <p
+    style={{
+      margin: "0 0 7px",
+      fontSize: "9px",
+      fontWeight: 900,
+      letterSpacing: "1.2px",
+    }}
+  >
+    📸 QUICK DESIGN CHECK
+  </p>
+
+  <p
+    style={{
+      margin: 0,
+      color: "#666",
+      fontSize: "10px",
+      lineHeight: 1.6,
+    }}
+  >
+    Feel free to send us a screenshot of your chosen
+    design on WhatsApp for a smooth order confirmation.
+  </p>
+</div>
 
                 <button
                   type="button"
