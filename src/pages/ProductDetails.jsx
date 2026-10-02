@@ -1,12 +1,20 @@
 import { useState } from "react";
-import { FiArrowLeft, FiHeart, FiMinus, FiPlus, FiShoppingBag } from "react-icons/fi";
+import {
+  FiArrowLeft,
+  FiHeart,
+  FiMinus,
+  FiPlus,
+  FiShoppingBag,
+} from "react-icons/fi";
 import { useCart } from "../context/CartContext";
 import "./ProductDetails.css";
 
 function ProductDetails({ product, onNavigate }) {
   const { addToCart } = useCart();
+
   const [size, setSize] = useState("M");
   const [quantity, setQuantity] = useState(1);
+  const [showSizeGuide, setShowSizeGuide] = useState(false);
 
   if (!product) {
     return (
@@ -45,6 +53,7 @@ function ProductDetails({ product, onNavigate }) {
       <section className="product-details">
 
         <div className="product-details-image">
+
           {product.badge && (
             <span className="product-details-badge">
               {product.badge}
@@ -63,6 +72,7 @@ function ProductDetails({ product, onNavigate }) {
             src={product.image}
             alt={product.name}
           />
+
         </div>
 
         <div className="product-details-info">
@@ -83,13 +93,24 @@ function ProductDetails({ product, onNavigate }) {
 
           {!product.quoteOnly && (
             <>
+
+              {/* SIZE */}
               <div className="product-details-option">
+
                 <div className="product-details-option-header">
                   <span>SELECT SIZE</span>
-                  <span>SIZE GUIDE</span>
+
+                  <button
+                    type="button"
+                    className="product-details-size-guide"
+                    onClick={() => setShowSizeGuide(true)}
+                  >
+                    SIZE GUIDE
+                  </button>
                 </div>
 
                 <div className="product-details-sizes">
+
                   {["XS", "S", "M", "L", "XL", "XXL"].map(
                     (itemSize) => (
                       <button
@@ -104,13 +125,18 @@ function ProductDetails({ product, onNavigate }) {
                       </button>
                     )
                   )}
+
                 </div>
+
               </div>
 
+              {/* QUANTITY */}
               <div className="product-details-option">
+
                 <span>QUANTITY</span>
 
                 <div className="product-details-quantity">
+
                   <button
                     type="button"
                     onClick={() =>
@@ -132,9 +158,12 @@ function ProductDetails({ product, onNavigate }) {
                   >
                     <FiPlus />
                   </button>
+
                 </div>
+
               </div>
 
+              {/* ADD TO BAG */}
               <button
                 type="button"
                 className="product-details-add"
@@ -144,6 +173,7 @@ function ProductDetails({ product, onNavigate }) {
                 ADD TO BAG
                 <span>↗</span>
               </button>
+
             </>
           )}
 
@@ -159,15 +189,48 @@ function ProductDetails({ product, onNavigate }) {
           )}
 
           <div className="product-details-note">
+
             <strong>TEE MEME QUALITY</strong>
+
             <p>
               Made to be worn, remembered and talked about.
             </p>
+
           </div>
 
         </div>
 
       </section>
+
+      {/* SIZE GUIDE MODAL */}
+      {showSizeGuide && (
+        <div
+          className="size-guide-overlay"
+          onClick={() => setShowSizeGuide(false)}
+        >
+
+          <div
+            className="size-guide-modal"
+            onClick={(event) => event.stopPropagation()}
+          >
+
+            <button
+              type="button"
+              className="size-guide-close"
+              onClick={() => setShowSizeGuide(false)}
+            >
+              ×
+            </button>
+
+            <img
+              src="/images/teememe-size-guide.jpg"
+              alt="TeeMeme size guide"
+            />
+
+          </div>
+
+        </div>
+      )}
 
     </main>
   );

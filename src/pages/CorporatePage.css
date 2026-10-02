@@ -1143,3 +1143,18 @@
     height: 15px;
   }
 }
+
+.corporate-email-link {
+  display: inline-block;
+  margin-top: 18px;
+  color: #ff5a00;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.corporate-email-link:hover {
+  opacity: 0.7;
+}

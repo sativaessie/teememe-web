@@ -14,8 +14,8 @@ function CorporatePage({ onNavigate }) {
   const [orderType, setOrderType] = useState("");
   const [colour, setColour] = useState("");
   const [file, setFile] = useState(null);
- const [showWhatsAppNotice, setShowWhatsAppNotice] = useState(false);
-const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const [showEmailNotice, setShowEmailNotice] = useState(false);
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [deadline, setDeadline] = useState("");
   const [notes, setNotes] = useState("");
   const [name, setName] = useState("");
@@ -34,66 +34,67 @@ const [acceptedTerms, setAcceptedTerms] = useState(false);
     0
   );
 
-     const handleSubmit = (event) => {
-  event.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
-  if (!company.trim()) {
-    alert("Please enter your company or organisation.");
-    return;
-  }
+    if (!company.trim()) {
+      alert("Please enter your company or organisation.");
+      return;
+    }
 
-  if (!orderType) {
-    alert("Please select what you are ordering.");
-    return;
-  }
+    if (!orderType) {
+      alert("Please select what you are ordering.");
+      return;
+    }
 
-  if (!colour) {
-    alert("Please select a garment colour.");
-    return;
-  }
+    if (!colour) {
+      alert("Please select a garment colour.");
+      return;
+    }
 
-  if (totalQuantity === 0) {
-    alert("Please enter at least one quantity.");
-    return;
-  }
+    if (totalQuantity === 0) {
+      alert("Please enter at least one quantity.");
+      return;
+    }
 
-  if (!deadline) {
-    alert("Please select your deadline.");
-    return;
-  }
+    if (!deadline) {
+      alert("Please select your deadline.");
+      return;
+    }
 
-  if (!name.trim()) {
-    alert("Please enter your name.");
-    return;
-  }
+    if (!name.trim()) {
+      alert("Please enter your name.");
+      return;
+    }
 
-  if (!phone.trim()) {
-    alert("Please enter your phone number.");
-    return;
-  }
+    if (!phone.trim()) {
+      alert("Please enter your phone number.");
+      return;
+    }
 
-  if (!email.trim()) {
-    alert("Please enter your email address.");
-    return;
-  }
+    if (!email.trim()) {
+      alert("Please enter your email address.");
+      return;
+    }
 
-  setAcceptedTerms(false);
-setShowWhatsAppNotice(true);
-};
+    setAcceptedTerms(false);
+    setShowEmailNotice(true);
+  };
 
-const continueToWhatsApp = () => {
-
+  const continueToEmail = () => {
     if (!acceptedTerms) {
-    alert("Please agree to TeeMeme's Terms & Conditions before continuing.");
-    return;
-  }
+      alert("Please agree to TeeMeme's Terms & Conditions before continuing.");
+      return;
+    }
 
-  const sizeBreakdown = Object.entries(sizes)
-    .filter(([, quantity]) => quantity > 0)
-    .map(([size, quantity]) => `${size}: ${quantity}`)
-    .join("\n");
+    const sizeBreakdown = Object.entries(sizes)
+      .filter(([, quantity]) => quantity > 0)
+      .map(([size, quantity]) => `${size}: ${quantity}`)
+      .join("\n");
 
-  const message = `Hi TeeMeme!
+    const subject = `TeeMeme Corporate / Bulk Quote Request - ${company}`;
+
+    const message = `Hi TeeMeme,
 
 I'd like to request a corporate / bulk order.
 
@@ -119,7 +120,7 @@ ${deadline || "Not specified"}
 LOGO / DESIGN
 --------------------
 
-Customer will attach the logo/design directly in WhatsApp.
+I will attach my logo/design to this email before sending.
 
 --------------------
 ADDITIONAL DETAILS
@@ -135,20 +136,18 @@ Name: ${name}
 Phone: ${phone}
 Email: ${email}
 
-I'd like to discuss this corporate/bulk order with TeeMeme.
+I'd like to discuss this corporate/bulk order with TeeMeme and receive a quote.
 
 Thank you!`;
 
-  const whatsappNumber = "254704547072";
+    const mailtoUrl = `mailto:sales@shopteememe.com?subject=${encodeURIComponent(
+      subject
+    )}&body=${encodeURIComponent(message)}`;
 
-  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-    message
-  )}`;
+    window.location.href = mailtoUrl;
 
-  window.open(whatsappUrl, "_blank");
-
-  setShowWhatsAppNotice(false);
-};
+    setShowEmailNotice(false);
+  };
 
   return (
     <main className="corporate-page">
@@ -374,6 +373,13 @@ Thank you!`;
             to you with the details and a quote.
           </p>
 
+          <a
+            href="mailto:sales@shopteememe.com"
+            className="corporate-email-link"
+          >
+            sales@shopteememe.com
+          </a>
+
           <div className="corporate-request-note">
             <span>01</span>
             <p>
@@ -467,53 +473,52 @@ Thank you!`;
               </option>
 
               <option>Black</option>
-<option>White</option>
-<option>Grey</option>
-<option>Green</option>
-<option>Orange</option>
-<option>Hot Pink</option>
-<option>Baby Pink</option>
-<option>Maroon</option>
-<option>Yellow</option>
-<option>Mustard</option>
-<option>Sky Blue</option>
-<option>Navy</option>
-<option>Ash Grey</option>
-<option>Charcoal Grey</option>
-<option>Light Grey</option>
-<option>Other</option>
+              <option>White</option>
+              <option>Grey</option>
+              <option>Green</option>
+              <option>Orange</option>
+              <option>Hot Pink</option>
+              <option>Baby Pink</option>
+              <option>Maroon</option>
+              <option>Yellow</option>
+              <option>Mustard</option>
+              <option>Sky Blue</option>
+              <option>Navy</option>
+              <option>Ash Grey</option>
+              <option>Charcoal Grey</option>
+              <option>Light Grey</option>
+              <option>Other</option>
 
             </select>
 
           </div>
 
 
-         {/* LOGO / DESIGN */}
+          {/* LOGO / DESIGN */}
 
-<div className="corporate-form-group corporate-design-instruction">
+          <div className="corporate-form-group corporate-design-instruction">
 
-  <label>LOGO / DESIGN</label>
+            <label>LOGO / DESIGN</label>
 
-  <div className="corporate-design-box">
+            <div className="corporate-design-box">
 
-    <span className="corporate-design-number">
-      01
-    </span>
+              <span className="corporate-design-number">
+                01
+              </span>
 
-    <div>
-      <strong>ATTACH IT IN WHATSAPP</strong>
+              <div>
+                <strong>ATTACH IT TO THE EMAIL</strong>
 
-      <p>
-        Please attach your logo or design directly
-        in WhatsApp when you send your request.
-      </p>
-    </div>
+                <p>
+                  Please attach your logo or design to
+                  the email before sending your request.
+                </p>
+              </div>
 
-  </div>
+            </div>
 
-</div>
+          </div>
 
-          
 
           {/* SIZE BREAKDOWN */}
 
@@ -666,98 +671,117 @@ Thank you!`;
           </button>
 
           <p className="corporate-submit-note">
-            Your request will open in WhatsApp so we can
-            discuss your order directly.
+            Your request will open in your email so you
+            can review it, attach your logo or design,
+            and send it directly to TeeMeme.
           </p>
 
         </form>
 
       </section>
 
-     {showWhatsAppNotice && (
-  <div
-    className="corporate-whatsapp-overlay"
-    onClick={() => setShowWhatsAppNotice(false)}
-  >
-    <div
-      className="corporate-whatsapp-modal"
-      onClick={(event) => event.stopPropagation()}
-    >
-      <button
-        type="button"
-        className="corporate-whatsapp-close"
-        onClick={() => setShowWhatsAppNotice(false)}
-      >
-        ×
-      </button>
 
-      <p className="corporate-whatsapp-eyebrow">
-        ONE LAST STEP
-      </p>
+      {/* =====================================================
+          EMAIL CONFIRMATION
+      ===================================================== */}
 
-      <h2>
-        YOUR QUOTE
-        <br />
-        <span>REQUEST IS READY.</span>
-      </h2>
+      {showEmailNotice && (
+        <div
+          className="corporate-whatsapp-overlay"
+          onClick={() => setShowEmailNotice(false)}
+        >
 
-      <p className="corporate-whatsapp-text">
-        We've got your corporate order details.
-      </p>
- <label className="corporate-whatsapp-terms">
-  <input
-    type="checkbox"
-    checked={acceptedTerms}
-    onChange={(event) =>
-      setAcceptedTerms(event.target.checked)
-    }
-  />
+          <div
+            className="corporate-whatsapp-modal"
+            onClick={(event) => event.stopPropagation()}
+          >
 
-  <span>
-    I agree to TeeMeme's{" "}
-    <button
-      type="button"
-      onClick={() => {
-  setShowWhatsAppNotice(false);
-  window.scrollTo(0, 0);
-}}
-    >
-      Terms & Conditions
-    </button>
-    .
-  </span>
-</label>
-       
+            <button
+              type="button"
+              className="corporate-whatsapp-close"
+              onClick={() => setShowEmailNotice(false)}
+            >
+              ×
+            </button>
 
-      <div className="corporate-whatsapp-instruction">
-        <strong>Before you send:</strong>
+            <p className="corporate-whatsapp-eyebrow">
+              ONE LAST STEP
+            </p>
 
-        <p>
-  When WhatsApp opens, please attach your
-  logo or design directly to the chat before
-  sending your request.
-</p>
-      </div>
+            <h2>
+              YOUR QUOTE
+              <br />
+              <span>REQUEST IS READY.</span>
+            </h2>
 
-      <button
-        type="button"
-        className="corporate-whatsapp-continue"
-        onClick={continueToWhatsApp}
-      >
-        CONTINUE TO WHATSAPP
-        <span>↗</span>
-      </button>
+            <p className="corporate-whatsapp-text">
+              We've got your corporate order details ready.
+            </p>
 
-      <button
-        type="button"
-        className="corporate-whatsapp-back"
-        onClick={() => setShowWhatsAppNotice(false)}
-      >
-        GO BACK & EDIT
-      </button>
-    </div>
-  </div>
-)}
+            <label className="corporate-whatsapp-terms">
+
+              <input
+                type="checkbox"
+                checked={acceptedTerms}
+                onChange={(event) =>
+                  setAcceptedTerms(event.target.checked)
+                }
+              />
+
+              <span>
+                I agree to TeeMeme's{" "}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowEmailNotice(false);
+                    window.scrollTo(0, 0);
+                  }}
+                >
+                  Terms & Conditions
+                </button>
+                .
+              </span>
+
+            </label>
+
+
+            <div className="corporate-whatsapp-instruction">
+
+              <strong>Before you send:</strong>
+
+              <p>
+                Your email will open with your order
+                details already filled in. Please attach
+                your logo or design to the email before
+                sending it to TeeMeme.
+              </p>
+
+            </div>
+
+
+            <button
+              type="button"
+              className="corporate-whatsapp-continue"
+              onClick={continueToEmail}
+            >
+              OPEN EMAIL
+              <span>↗</span>
+            </button>
+
+
+            <button
+              type="button"
+              className="corporate-whatsapp-back"
+              onClick={() => setShowEmailNotice(false)}
+            >
+              GO BACK & EDIT
+            </button>
+
+          </div>
+
+        </div>
+      )}
+
     </main>
   );
 }

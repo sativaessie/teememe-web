@@ -88,12 +88,16 @@ function Footer({ onNavigate }) {
           <div className="footer-column">
             <p className="footer-title">CONTACT</p>
 
-            <a href="tel:+254704547072">
-              0704 547 072
+            <a href="tel:+254745848537">
+              0745848537
             </a>
 
+            <a href="mailto:sales@shopteememe.com">
+  sales@shopteememe.com
+</a>
+
             <a
-              href="https://wa.me/254704547072"
+              href="https://wa.me/254745848537"
               target="_blank"
               rel="noreferrer"
             >
